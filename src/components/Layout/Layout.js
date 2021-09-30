@@ -1,6 +1,6 @@
 const Layout = props => {
     return (
-        <div style={{height: 1000}}>
+        <div>
             <main>{props.children}</main>
         </div>
     )

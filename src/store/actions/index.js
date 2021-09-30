@@ -1,0 +1,3 @@
+export {
+    fetchDictionary
+} from './dictionary';
