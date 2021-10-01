@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PetsIcon from "@mui/icons-material/Pets";
-import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 
 import SearchBar from "../../components/UI/SearchBar/SearchBar";
 import * as actionCreators from "../../store/actions";
@@ -9,33 +9,49 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import DictionaryCard from "../../components/DictionaryCard/DictionaryCard";
 
 const Dictionary = (props) => {
+
   const onSearchHandler = (keyword) => {
     props.onSearch(keyword);
   };
 
+  const onAddNewWordHandler = (index) => {
+    const selectedDef = props.definitions[index].definition;
+    props.history.push('/new-word', {
+      definition: selectedDef,
+      partOfSpeech: props.partOfSpeech,
+      word: props.word
+    });
+  }
+
   let searchResult;
   if (props.loading) {
     searchResult = <Spinner />;
-  } else if (props.definition) {
-    console.log(props.definition);
+  } else if (props.definitions) {
     searchResult = (
       <div>
-        {props.definition.map((def, i) => (
+        {props.definitions.map((def, i) => (
           <DictionaryCard
             key={i}
             word={props.word}
             partOfSpeech={props.partOfSpeech}
             definition={def.definition}
+            saved={() => onAddNewWordHandler(i)}
           />
         ))}
       </div>
     );
   } else {
     searchResult = (
-      <Box display="flow" alignItems="center" justifyContent="center">
-        <PetsIcon /> 
-        Search or add a new word
-      </Box>
+      <Stack
+        direction="column"
+        spacing={2}
+        alignItems="center"
+        justifyContent="center"
+        sx={{ height: "60vh" }}
+      >
+        <PetsIcon fontSize="large" />
+        <span>Search or add a new word</span>
+      </Stack>
     );
   }
 
@@ -49,7 +65,7 @@ const Dictionary = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    definition: state.dictionary.definition,
+    definitions: state.dictionary.definition,
     partOfSpeech: state.dictionary.partOfSpeech,
     word: state.dictionary.word,
     loading: state.dictionary.loading,

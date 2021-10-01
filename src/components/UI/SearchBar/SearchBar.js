@@ -4,44 +4,52 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Stack from "@mui/material/Stack";
-import FormControl from "@mui/material/FormControl";
 
 const SearchBar = (props) => {
+  const [keyword, setKeyword] = useState("");
 
-  const [keyword, setKeyword] = useState('');
-  const handleChange = (event) => {
+  const onChangeHandler = (event) => {
     setKeyword(event.target.value);
   };
 
+  const onKeypressHandler = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      props.searched(keyword);
+    }
+  };
+
   return (
-    <Box component="form" noValidate autoComplete="off">
-      <FormControl sx={{ margin: 2 }}>
-        <Stack
-          direction="row"
-          spacing={1}
-          alignItems="center"
-          justifyContent="center"
+    <Box component="form" noValidate autoComplete="off" sx={{ marginTop: 2, width: "100%" }}>
+      <Stack
+        direction="row"
+        spacing={1}
+        alignItems="center"
+        justifyContent="center"
+        sx={{ width: "100%", margin: 1 }}
+      >
+        <TextField
+          id="searchbox"
+          type="search"
+          label="Search here"
+          variant="outlined"
+          size="small"
+          sx={{ width: "80%" }}
+          onChange={onChangeHandler}
+          value={keyword}
+          onKeyPress={onKeypressHandler}
+        />
+        <IconButton
+          aria-label="search"
+          color="primary"
+          size="large"
+          onClick={() => {
+            props.searched(keyword);
+          }}
         >
-          <TextField
-            id="searchbox"
-            type="search"
-            label="Search here"
-            variant="outlined"
-            size="small"
-            sx={{ width: 300 }}
-            onChange={handleChange}
-            value={keyword}
-          />
-          <IconButton
-            aria-label="search"
-            color="primary"
-            size="large"
-            onClick={() => {props.searched(keyword)}}
-          >
-            <SearchIcon fontSize="inherit" />
-          </IconButton>
-        </Stack>
-      </FormControl>
+          <SearchIcon fontSize="inherit" />
+        </IconButton>
+      </Stack>
     </Box>
   );
 };
