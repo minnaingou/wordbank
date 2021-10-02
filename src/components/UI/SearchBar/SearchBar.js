@@ -20,13 +20,18 @@ const SearchBar = (props) => {
   };
 
   return (
-    <Box component="form" noValidate autoComplete="off" sx={{ marginTop: 2, width: "100%" }}>
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      sx={{ marginTop: 2, width: "100%" }}
+    >
       <Stack
         direction="row"
         spacing={1}
         alignItems="center"
         justifyContent="center"
-        sx={{ width: "100%", margin: 1 }}
+        sx={{ width: "100%" }}
       >
         <TextField
           id="searchbox"
@@ -34,7 +39,7 @@ const SearchBar = (props) => {
           label="Search here"
           variant="outlined"
           size="small"
-          sx={{ width: "80%" }}
+          sx={{ width: "87%" }}
           onChange={onChangeHandler}
           value={keyword}
           onKeyPress={onKeypressHandler}
@@ -43,6 +48,7 @@ const SearchBar = (props) => {
           aria-label="search"
           color="primary"
           size="large"
+          sx={{ padding: 0 }}
           onClick={() => {
             props.searched(keyword);
           }}

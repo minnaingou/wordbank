@@ -8,12 +8,14 @@ import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import "./index.css";
 import App from "./App";
 import dictionaryReducer from './store/reducers/dictionary';
+import favouriteReducer from './store/reducers/favourite';
 import reportWebVitals from "./reportWebVitals";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-  dictionary: dictionaryReducer
+  dictionary: dictionaryReducer,
+  favourite: favouriteReducer
 });
 
 const store = createStore(

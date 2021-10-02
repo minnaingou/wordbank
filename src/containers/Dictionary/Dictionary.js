@@ -6,36 +6,39 @@ import Stack from "@mui/material/Stack";
 import SearchBar from "../../components/UI/SearchBar/SearchBar";
 import * as actionCreators from "../../store/actions";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import DictionaryCard from "../../components/DictionaryCard/DictionaryCard";
+import DictionaryCard from "../../components/Dictionary/DictionaryCard/DictionaryCard";
+import FloatingActionButton from "../../components/UI/FloatingActionButton/FloatingActionButton";
 
 const Dictionary = (props) => {
-
   const onSearchHandler = (keyword) => {
     props.onSearch(keyword);
   };
 
-  const onAddNewWordHandler = (index) => {
-    const selectedDef = props.definitions[index].definition;
-    props.history.push('/new-word', {
-      definition: selectedDef,
-      partOfSpeech: props.partOfSpeech,
-      word: props.word
+  const onAddWordInputHandler = (index) => {
+    props.history.push("/new-word", {
+      word: props.word,
+      dictionary: props.dictionaries[index],
     });
-  }
+  };
+
+  const onFabHandler = () => {
+    props.history.push("/new-word");
+  };
 
   let searchResult;
   if (props.loading) {
     searchResult = <Spinner />;
-  } else if (props.definitions) {
+  } else if (props.dictionaries) {
     searchResult = (
-      <div>
-        {props.definitions.map((def, i) => (
+      <div style={{ paddingBottom: 50 }}>
+        {props.dictionaries.map((dict, i) => (
           <DictionaryCard
-            key={i}
+            key={dict.key}
             word={props.word}
-            partOfSpeech={props.partOfSpeech}
-            definition={def.definition}
-            saved={() => onAddNewWordHandler(i)}
+            partOfSpeech={dict.partOfSpeech}
+            definition={dict.definition}
+            example={dict.example}
+            saved={() => onAddWordInputHandler(i)}
           />
         ))}
       </div>
@@ -47,7 +50,7 @@ const Dictionary = (props) => {
         spacing={2}
         alignItems="center"
         justifyContent="center"
-        sx={{ height: "60vh" }}
+        sx={{ height: "50vh" }}
       >
         <PetsIcon fontSize="large" />
         <span>Search or add a new word</span>
@@ -59,16 +62,16 @@ const Dictionary = (props) => {
     <>
       <SearchBar searched={onSearchHandler} />
       {searchResult}
+      <FloatingActionButton clicked={onFabHandler} type="add" />
     </>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    definitions: state.dictionary.definition,
-    partOfSpeech: state.dictionary.partOfSpeech,
-    word: state.dictionary.word,
     loading: state.dictionary.loading,
+    word: state.dictionary.word,
+    dictionaries: state.dictionary.dictionaries,
   };
 };
 

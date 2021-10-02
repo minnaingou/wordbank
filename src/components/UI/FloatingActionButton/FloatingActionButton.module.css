@@ -1,0 +1,17 @@
+.Fab {
+  margin: 0px !important;
+  top: auto !important;
+  right: 20px !important;
+  bottom: 80px !important;
+  left: auto !important;
+  position: fixed !important;
+}
+
+.Progress {
+  margin: 0px;
+  top: auto;
+  right: 15px;
+  bottom: 74px;
+  left: auto;
+  position: fixed !important;
+}

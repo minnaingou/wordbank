@@ -7,6 +7,14 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const DictionaryCard = (props) => {
+  let example = null;
+  if (props.example) {
+    example = (
+      <Typography variant="body2" sx={{ mt: 1.5 }} color="text.secondary">
+        Example: {props.example}
+      </Typography>
+    );
+  }
   return (
     <Card sx={{ minWidth: 275, textAlign: "left", margin: 2 }}>
       <CardHeader
@@ -18,8 +26,9 @@ const DictionaryCard = (props) => {
         title={props.word}
         subheader={props.partOfSpeech}
       />
-      <CardContent>
+      <CardContent sx={{ paddingTop: 0 }}>
         <Typography variant="body2">{props.definition}</Typography>
+        {example}
       </CardContent>
     </Card>
   );

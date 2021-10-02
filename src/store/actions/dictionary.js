@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
+import axiosFirebase from "../../utils/firebase-axios";
 
 const fetchDictionaryStart = () => {
   return {
@@ -10,14 +11,14 @@ const fetchDictionaryStart = () => {
 const fetchDictionarySuccess = (payload) => {
   return {
     type: actionTypes.FETCH_DICTIONARY_SUCCESS,
-    payload
+    payload,
   };
 };
 
 const fetchDictionaryFail = (error) => {
   return {
     type: actionTypes.FETCH_DICTIONARY_FAIL,
-    error
+    error,
   };
 };
 
@@ -28,11 +29,25 @@ export const fetchDictionary = (keyword) => {
       .get(" https://api.dictionaryapi.dev/api/v2/entries/en/" + keyword.trim())
       .then((res) => {
         const result = res.data[0];
-        dispatch(fetchDictionarySuccess({
-          word: result.word,
-          partOfSpeech: result.meanings[0].partOfSpeech,
-          definition: result.meanings[0].definitions
-        }));
+        const dictionaries = [];
+        result.meanings.forEach((m, mi) => {
+          m.definitions.forEach((d, di) => {
+            dictionaries.push({
+              key: mi + ":" + di,
+              partOfSpeech: m.partOfSpeech,
+              definition: d.definition,
+              example: d.example,
+              synonyms: d.synonyms,
+            });
+          });
+        });
+
+        dispatch(
+          fetchDictionarySuccess({
+            word: result.word,
+            dictionaries,
+          })
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -40,3 +55,45 @@ export const fetchDictionary = (keyword) => {
       });
   };
 };
+
+const saveDictionaryStart = () => {
+  return {
+    type: actionTypes.SAVE_DICTIONARY_START,
+  }
+}
+
+const saveDictionarySuccess = (payload) => {
+  return {
+    type: actionTypes.SAVE_DICTIONARY_SUCCESS,
+    payload,
+  };
+};
+
+const saveDictionaryFail = (error) => {
+  return {
+    type: actionTypes.SAVE_DICTIONARY_FAIL,
+    error,
+  };
+};
+
+export const saveDictionary = (dictionary) => {
+  return (dispatch) => {
+    dispatch(saveDictionaryStart());
+    axiosFirebase
+      .post("/dictionaries.json", dictionary)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(saveDictionarySuccess(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(saveDictionaryFail(err));
+      });
+  };
+};
+
+export const saveDictionaryCleanup = () => {
+  return {
+    type: actionTypes.SAVE_DICTIONARY_CLEANUP
+  }
+}
