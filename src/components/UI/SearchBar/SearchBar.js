@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import Stack from "@mui/material/Stack";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const SearchBar = (props) => {
   const [keyword, setKeyword] = useState("");
+  const { changed } = props;
 
   const onChangeHandler = (event) => {
     setKeyword(event.target.value);
   };
 
+  useEffect(() => {
+    changed && changed(keyword);
+  }, [changed, keyword]);
+
   const onKeypressHandler = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && props.searched) {
       event.preventDefault();
       props.searched(keyword);
     }
@@ -24,38 +28,29 @@ const SearchBar = (props) => {
       component="form"
       noValidate
       autoComplete="off"
-      sx={{ marginTop: 2, width: "100%" }}
+      sx={{ marginTop: 2, width: "100%", marginBottom: 2 }}
     >
-      <Stack
-        direction="row"
-        spacing={1}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ width: "100%" }}
-      >
-        <TextField
-          id="searchbox"
-          type="search"
-          label="Search here"
-          variant="outlined"
-          size="small"
-          sx={{ width: "87%" }}
-          onChange={onChangeHandler}
-          value={keyword}
-          onKeyPress={onKeypressHandler}
-        />
-        <IconButton
-          aria-label="search"
-          color="primary"
-          size="large"
-          sx={{ padding: 0 }}
-          onClick={() => {
-            props.searched(keyword);
-          }}
-        >
-          <SearchIcon fontSize="inherit" />
-        </IconButton>
-      </Stack>
+      <TextField
+        id="searchbox"
+        autoFocus={props.focus}
+        type="search"
+        variant="outlined"
+        size="small"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+        sx={{
+          width: "95%",
+          "& .MuiOutlinedInput-notchedOutline": { borderRadius: "50px" },
+        }}
+        onChange={onChangeHandler}
+        value={keyword}
+        onKeyPress={onKeypressHandler}
+      />
     </Box>
   );
 };

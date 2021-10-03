@@ -23,8 +23,8 @@ const DialogBox = (props) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.cancelled}>Cancel</Button>
-        <Button onClick={props.confirmed}>{props.confirmLabel}</Button>
+        {props.dismissLabel ? <Button onClick={props.cancelled}>{props.dismissLabel}</Button> : null}
+        {props.confirmLabel ? <Button onClick={props.confirmed}>{props.confirmLabel}</Button> : null}
       </DialogActions>
     </Dialog>
   );

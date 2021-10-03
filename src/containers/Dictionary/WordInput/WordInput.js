@@ -10,6 +10,7 @@ import { FormControl } from "@mui/material";
 
 import FloatingActionButton from "../../../components/UI/FloatingActionButton/FloatingActionButton";
 import * as actionCreators from "../../../store/actions";
+import DialogBox from "../../../components/UI/DialogBox/DialogBox";
 
 const WordInput = (props) => {
   const [form, setForm] = useState({
@@ -20,7 +21,7 @@ const WordInput = (props) => {
       },
     },
     pos: {
-      value: "",
+      value: "noun",
       validation: {
         required: true,
       },
@@ -40,6 +41,8 @@ const WordInput = (props) => {
       validation: {},
     },
   });
+  const [errorDialog, setErrorDialog] = useState(false);
+  const [validForm, setValidForm] = useState(true);
 
   useEffect(() => {
     const dict = props.location.state;
@@ -68,9 +71,27 @@ const WordInput = (props) => {
     // clean up
     return () => {
       props.cleanup();
-    }
+    };
     // eslint-disable-next-line
   }, []);
+
+  const { error } = props;
+
+  useEffect(() => {
+    if (error) {
+      setErrorDialog(true);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    let valid = true;
+    Object.keys(form).forEach((key) => {
+      if (form[key].validation.required && !form[key].value) {
+        valid = false;
+      }
+    });
+    setValidForm(valid);
+  }, [form]);
 
   const onChangeHandler = (event, input) => {
     setForm({
@@ -80,6 +101,10 @@ const WordInput = (props) => {
         value: event.target.value,
       },
     });
+  };
+
+  const onErrorConfirmHandler = () => {
+    setErrorDialog(false);
   };
 
   const onFabHandler = () => {
@@ -93,7 +118,6 @@ const WordInput = (props) => {
         note: form.note.value,
       },
     };
-
     props.onSave(dictionary);
   };
 
@@ -123,7 +147,6 @@ const WordInput = (props) => {
           <FormControl sx={{ width: "35%" }}>
             <InputLabel id="posl">Part of Speech</InputLabel>
             <Select
-              //   variant="standard"
               labelId="posl"
               id="pos"
               value={form.pos.value ? form.pos.value : ""}
@@ -134,6 +157,7 @@ const WordInput = (props) => {
               <MenuItem value="adverb">Adverb</MenuItem>
               <MenuItem value="verb">Verb</MenuItem>
               <MenuItem value="adjective">Adjective</MenuItem>
+              <MenuItem value="abbreviation">Abbreviation</MenuItem>
               <MenuItem value="preposition">Preposition</MenuItem>
               <MenuItem value="conjunction">Conjunction</MenuItem>
               <MenuItem value="pronoun">Pronoun</MenuItem>
@@ -166,11 +190,25 @@ const WordInput = (props) => {
           onChange={(event) => onChangeHandler(event, "note")}
         />
       </Box>
+
+      {props.error && (
+        <DialogBox
+          content={props.error.message}
+          open={errorDialog}
+          dismissLabel="OK"
+          cancelled={onErrorConfirmHandler}
+        />
+      )}
+
       <FloatingActionButton
         clicked={onFabHandler}
         type="save"
         showProgress
-        progress={{ loading: props.saving, success: props.saved }}
+        disabled={!validForm}
+        progress={{
+          loading: props.saving,
+          success: !props.error && props.saved,
+        }}
       />
     </>
   );
@@ -178,15 +216,16 @@ const WordInput = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    saving: state.dictionary.saveProgress === 'saving' ? true : false,
-    saved: state.dictionary.saveProgress === 'saved' ? true : false,
+    saving: state.dictionary.saveProgress === "saving" ? true : false,
+    saved: state.dictionary.saveProgress === "saved" ? true : false,
+    error: state.dictionary.error,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onSave: (dictionary) => dispatch(actionCreators.saveDictionary(dictionary)),
-    cleanup: () => dispatch(actionCreators.saveDictionaryCleanup())
+    cleanup: () => dispatch(actionCreators.saveDictionaryCleanup()),
   };
 };
 

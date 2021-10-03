@@ -27,8 +27,15 @@ export const fetchDictionaryList = () => {
     axiosFirebase
       .get("/dictionaries.json")
       .then((res) => {
-        console.log(res.data);
-        dispatch(fetchDictionaryListSuccess(res.data));
+
+        // Intentionally added some delay to show off loading
+        new Promise(resolve => {
+          setTimeout(() => {
+            dispatch(fetchDictionaryListSuccess(res.data));
+            resolve();
+          }, 1000);
+        })
+        
       })
       .catch((err) => {
         console.log(err);
@@ -37,30 +44,32 @@ export const fetchDictionaryList = () => {
   };
 };
 
-const deleteDictionarySuccess = () => {
+const deleteFavouriteSuccess = (removedItem) => {
   return {
-    type: actionTypes.DELETE_DICTIONARY_SUCCESS,
+    type: actionTypes.DELETE_FAVOURITE_SUCCESS,
+    removedItem
   };
 };
 
-const deleteDictionaryFail = (error) => {
+const deleteFavouriteFail = (error) => {
   return {
-    type: actionTypes.DELETE_DICTIONARY_FAIL,
+    type: actionTypes.DELETE_FAVOURITE_FAIL,
     error,
   };
 };
 
-export const deleteDictionary = (key) => {
+export const deleteFavourite = (key) => {
   return (dispatch) => {
     axiosFirebase
       .delete("/dictionaries/" + key + ".json")
       .then(() => {
-        dispatch(deleteDictionarySuccess());
-        dispatch(fetchDictionaryList());
+        dispatch(deleteFavouriteSuccess(key));
+        // Filtering locally instead of fetching again to avoid loading
+        // dispatch(fetchDictionaryList());
       })
       .catch((err) => {
         console.log(err);
-        dispatch(deleteDictionaryFail(err));
+        dispatch(deleteFavouriteFail(err));
       });
   };
 };

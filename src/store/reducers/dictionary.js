@@ -12,6 +12,7 @@ const fetchDictionaryStart = (state) => {
   return {
     ...state,
     loading: true,
+    error: null
   };
 };
 
@@ -21,6 +22,7 @@ const fetchDictionarySuccess = (state, action) => {
     loading: false,
     word: action.payload.word,
     dictionaries: action.payload.dictionaries,
+    error: null
   };
 };
 
@@ -36,6 +38,7 @@ const saveDictionaryStart = (state, action) => {
   return {
     ...state,
     saveProgress: "saving",
+    error: null
   };
 };
 
@@ -43,6 +46,7 @@ const saveDictionarySuccess = (state, action) => {
   return {
     ...state,
     saveProgress: "saved",
+    error: null
   };
 };
 

@@ -7,9 +7,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import IconButton from "@mui/material/IconButton";
+import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 import { Stack } from "@mui/material";
 
-const SavedDictionaryItem = (props) => {
+const FavouriteItem = (props) => {
   let example = null;
   if (props.example) {
     example = (
@@ -18,13 +19,16 @@ const SavedDictionaryItem = (props) => {
       </Typography>
     );
   }
+
   return (
-    <Accordion>
+    <Accordion
+      expanded={props.expand === props.word}
+      onChange={props.expanded(props.word)}
+    >
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Stack direction="row" spacing={1}>
-          <Typography
-            style={{ fontWeight: "bold" }}
-          >
+          <LabelOutlinedIcon />
+          <Typography style={{ fontWeight: "bold" }}>
             {props.word}
           </Typography>{" "}
           <Typography
@@ -59,4 +63,4 @@ const SavedDictionaryItem = (props) => {
   );
 };
 
-export default SavedDictionaryItem;
+export default FavouriteItem;

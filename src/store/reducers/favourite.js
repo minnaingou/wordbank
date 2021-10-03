@@ -4,7 +4,7 @@ const initialState = {
   dictionaries: null,
   error: null,
   loading: false,
-  deleted: false
+  deleted: false,
 };
 
 const fetchDictionaryListStart = (state) => {
@@ -30,19 +30,26 @@ const fetchDictionaryListFail = (state, action) => {
   };
 };
 
-const deleteDictionarySuccess = (state) => {
+const deleteFavouriteSuccess = (state, action) => {
+  const deleteFiltered = Object.keys(state.dictionaries)
+    .filter((key) => key !== action.removedItem)
+    .reduce((obj, key) => {
+      obj[key] = state.dictionaries[key];
+      return obj;
+    }, {});
   return {
     ...state,
-    deleted: true
-  }
-}
+    dictionaries: deleteFiltered,
+    deleted: true,
+  };
+};
 
-const deleteDictionaryFail = (state, action) => {
+const deleteFavouriteFail = (state, action) => {
   return {
     ...state,
-    error: action.error
-  }
-}
+    error: action.error,
+  };
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -52,10 +59,10 @@ const reducer = (state = initialState, action) => {
       return fetchDictionaryListSuccess(state, action);
     case actionTypes.FETCH_DICTIONARY_LIST_FAIL:
       return fetchDictionaryListFail(state, action);
-    case actionTypes.DELETE_DICTIONARY_SUCCESS:
-      return deleteDictionarySuccess(state);
-    case actionTypes.DELETE_DICTIONARY_FAIL:
-      return deleteDictionaryFail(state, action);
+    case actionTypes.DELETE_FAVOURITE_SUCCESS:
+      return deleteFavouriteSuccess(state, action);
+    case actionTypes.DELETE_FAVOURITE_FAIL:
+      return deleteFavouriteFail(state, action);
     default:
       return state;
   }

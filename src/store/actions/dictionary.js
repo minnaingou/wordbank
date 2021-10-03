@@ -59,8 +59,8 @@ export const fetchDictionary = (keyword) => {
 const saveDictionaryStart = () => {
   return {
     type: actionTypes.SAVE_DICTIONARY_START,
-  }
-}
+  };
+};
 
 const saveDictionarySuccess = (payload) => {
   return {
@@ -78,22 +78,53 @@ const saveDictionaryFail = (error) => {
 
 export const saveDictionary = (dictionary) => {
   return (dispatch) => {
-    dispatch(saveDictionaryStart());
+    // check if already saved (firebase api restricts using multiple filter)
+    const queryParams = '?orderBy="userId"&equalTo="' + dictionary.userId + '"';
     axiosFirebase
-      .post("/dictionaries.json", dictionary)
+      .get("/dictionaries.json" + queryParams)
       .then((res) => {
-        console.log(res.data);
-        dispatch(saveDictionarySuccess(res.data));
+        let found = false;
+        if (res.data) {
+          if (
+            Object.keys(res.data).filter(
+              (key) => res.data[key].word === dictionary.word
+            ).length > 0
+          ) {
+            found = true;
+          }
+        }
+        if (found) {
+          dispatch(
+            saveDictionaryFail({ message: "The record already exists" })
+          );
+        } else {
+          dispatch(saveDictionaryStart());
+          axiosFirebase
+            .post("/dictionaries.json", dictionary)
+            .then((res) => {
+              // Intentionally added some delay to show off loading
+              new Promise((resolve) => {
+                setTimeout(() => {
+                  dispatch(saveDictionarySuccess(res.data));
+                  resolve();
+                }, 1000);
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+              dispatch(saveDictionaryFail(error));
+            });
+        }
       })
-      .catch((err) => {
-        console.log(err);
-        dispatch(saveDictionaryFail(err));
+      .catch((error) => {
+        console.log(error);
+        dispatch(saveDictionaryFail(error));
       });
   };
 };
 
 export const saveDictionaryCleanup = () => {
   return {
-    type: actionTypes.SAVE_DICTIONARY_CLEANUP
-  }
-}
+    type: actionTypes.SAVE_DICTIONARY_CLEANUP,
+  };
+};

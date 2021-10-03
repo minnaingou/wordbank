@@ -6,5 +6,5 @@ export {
 
 export {
     fetchDictionaryList,
-    deleteDictionary
+    deleteFavourite
 } from './favourite';
