@@ -19,6 +19,19 @@ const Favourite = (props) => {
     // eslint-disable-next-line
   }, []);
 
+  const onEditHandler = (key) => {
+    const dict = props.dictionaries[key];
+    props.history.push("/edit-favourite", {
+      key,
+      word: dict.word,
+      dictionary: {
+        partOfSpeech: dict.meaning.pos,
+        definition: dict.meaning.definition,
+        example: dict.meaning.example
+      },
+    });
+  }
+
   const onDeleteHandler = (key) => {
     setDialog({
       show: true,
@@ -52,7 +65,7 @@ const Favourite = (props) => {
         ))}
       </Stack>
     );
-  } else if (props.dictionaries) {
+  } else if (props.dictionaries && Object.keys(props.dictionaries).length) {
     list = Object.keys(props.dictionaries)
       .sort((a, b) => props.dictionaries[a].word.localeCompare(props.dictionaries[b].word))
       .filter((key) => {
@@ -72,6 +85,7 @@ const Favourite = (props) => {
             partOfSpeech={dict.meaning.pos}
             example={dict.meaning.example}
             definition={dict.meaning.definition}
+            edited={() => onEditHandler(key)}
             deleted={() => onDeleteHandler(key)}
             expand={itemExpanded}
             expanded={onExpand}

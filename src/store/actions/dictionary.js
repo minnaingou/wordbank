@@ -76,50 +76,95 @@ const saveDictionaryFail = (error) => {
   };
 };
 
-export const saveDictionary = (dictionary) => {
-  return (dispatch) => {
+const findSavedFavouriteByWord = (userId, word) => {
+  return new Promise((resolve, reject) => {
     // check if already saved (firebase api restricts using multiple filter)
-    const queryParams = '?orderBy="userId"&equalTo="' + dictionary.userId + '"';
+    const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
     axiosFirebase
       .get("/dictionaries.json" + queryParams)
       .then((res) => {
-        let found = false;
-        if (res.data) {
-          if (
-            Object.keys(res.data).filter(
-              (key) => res.data[key].word === dictionary.word
-            ).length > 0
-          ) {
-            found = true;
-          }
-        }
-        if (found) {
-          dispatch(
-            saveDictionaryFail({ message: "The record already exists" })
-          );
-        } else {
-          dispatch(saveDictionaryStart());
-          axiosFirebase
-            .post("/dictionaries.json", dictionary)
-            .then((res) => {
-              // Intentionally added some delay to show off loading
-              new Promise((resolve) => {
-                setTimeout(() => {
-                  dispatch(saveDictionarySuccess(res.data));
-                  resolve();
-                }, 1000);
-              });
-            })
-            .catch((error) => {
-              console.log(error);
-              dispatch(saveDictionaryFail(error));
-            });
-        }
+        const favourite = Object.keys(res.data).find(
+          (key) => res.data[key].word === word
+        );
+        resolve(favourite);
       })
       .catch((error) => {
         console.log(error);
-        dispatch(saveDictionaryFail(error));
+        reject(error);
       });
+  });
+};
+
+const postFavouriteToFirebase = (dictionary) => {
+  return new Promise((resolve, reject) => {
+    axiosFirebase
+      .post("/dictionaries.json", dictionary)
+      .then((res) => {
+        // Intentionally added some delay to show off loading
+        setTimeout(() => {
+          resolve(res.data);
+        }, 1000);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+  });
+};
+
+const updateFavouriteToFirebase = (key, dictionary) => {
+  return new Promise((resolve, reject) => {
+    axiosFirebase
+      .put("/dictionaries/" + key + ".json", dictionary)
+      .then((res) => {
+        // Intentionally added some delay to show off loading
+        setTimeout(() => {
+          resolve(res.data);
+        }, 1000);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+  });
+};
+
+export const saveDictionary = (dictionary, editing, editKey) => {
+  return (dispatch) => {
+    if (editing) {
+      dispatch(saveDictionaryStart());
+      updateFavouriteToFirebase(editKey, dictionary)
+        .then((res) => {
+          dispatch(saveDictionarySuccess(res));
+        })
+        .catch((error) => {
+          console.error(error);
+          dispatch(saveDictionaryFail(error));
+        });
+    } else {
+      findSavedFavouriteByWord(dictionary.userId, dictionary.word)
+        .then((savedFav) => {
+          if (savedFav) {
+            dispatch(
+              saveDictionaryFail({ message: "The record already exists" })
+            );
+          } else {
+            dispatch(saveDictionaryStart());
+            postFavouriteToFirebase(dictionary)
+              .then((res) => {
+                dispatch(saveDictionarySuccess(res));
+              })
+              .catch((error) => {
+                console.error(error);
+                dispatch(saveDictionaryFail(error));
+              });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          dispatch(saveDictionaryFail(error));
+        });
+    }
   };
 };
 

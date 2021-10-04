@@ -15,14 +15,14 @@ const Dictionary = (props) => {
   };
 
   const onAddWordInputHandler = (index) => {
-    props.history.push("/new-word", {
+    props.history.push("/add-favourite", {
       word: props.word,
       dictionary: props.dictionaries[index],
     });
   };
 
   const onFabHandler = () => {
-    props.history.push("/new-word");
+    props.history.push("/add-favourite");
   };
 
   let searchResult;

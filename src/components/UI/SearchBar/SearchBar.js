@@ -17,9 +17,9 @@ const SearchBar = (props) => {
   }, [changed, keyword]);
 
   const onKeypressHandler = (event) => {
-    if (event.key === "Enter" && props.searched) {
+    if (event.key === "Enter") {
       event.preventDefault();
-      props.searched(keyword);
+      props.searched && props.searched(keyword);
     }
   };
 

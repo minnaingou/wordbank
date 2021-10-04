@@ -118,7 +118,8 @@ const WordInput = (props) => {
         note: form.note.value,
       },
     };
-    props.onSave(dictionary);
+    // props.mode = [ add | edit ]
+    props.onSave(dictionary, props.mode === "edit", props.location.state.key);
   };
 
   return (
@@ -224,7 +225,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSave: (dictionary) => dispatch(actionCreators.saveDictionary(dictionary)),
+    onSave: (dictionary, editing, key) =>
+      dispatch(actionCreators.saveDictionary(dictionary, editing, key)),
     cleanup: () => dispatch(actionCreators.saveDictionaryCleanup()),
   };
 };

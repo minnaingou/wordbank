@@ -14,10 +14,18 @@ function App() {
       <Layout>
         <Switch>
           <Route path="/" exact component={Dictionary} />
-          <Route path="/new-word" component={WordInput} />
+          <Route
+            path="/add-favourite"
+            render={(props) => <WordInput {...props} mode="add" />}
+          />
+          <Route
+            path="/edit-favourite"
+            render={(props) => <WordInput {...props} mode="edit" />}
+          />
           <Route path="/saved" component={Favourite} />
           <Route path="/practice" component={Practice} />
           <Route path="/more" component={MoreOptions} />
+          {/* <Route component={Error404} /> */}
         </Switch>
       </Layout>
     </div>
