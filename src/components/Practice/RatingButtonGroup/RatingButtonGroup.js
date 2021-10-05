@@ -1,6 +1,6 @@
 import React from "react";
 import Fab from "@mui/material/Fab";
-import AutorenewIcon from "@mui/icons-material/Autorenew";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import BlockIcon from "@mui/icons-material/Block";
@@ -12,60 +12,63 @@ const RatingButtonGroup = (props) => {
   const ratingButtons = [];
   if (props.flipped) {
     ratingButtons.push({
-      name: "negative",
+      type: "negative",
       color: "inherit",
       sx: {
-        bgcolor: "#ff1744",
+        bgcolor: "#EB3941",
         "&:hover": {
-          bgcolor: "#ff1744",
+          bgcolor: "#EB3941",
         },
       },
       icon: <ThumbDownIcon />,
       clicked: () => {
-        props.clicked();
+        props.clicked("negative");
       },
     });
     ratingButtons.push({
-      name: "skip",
+      type: "skip",
       color: "inherit",
       sx: {
-        bgcolor: "#ffc400",
+        bgcolor: "#F4BD00",
         "&:hover": {
-          bgcolor: "#ffc400",
+          bgcolor: "#F4BD00",
         },
       },
       icon: <BlockIcon />,
       clicked: () => {
-        props.clicked();
+        props.clicked("skip");
       },
     });
     ratingButtons.push({
-      name: "positive",
+      type: "positive",
       color: "inherit",
       sx: {
-        bgcolor: "#00a152",
+        bgcolor: "#0B8043",
         "&:hover": {
-          bgcolor: "#00a152",
+          bgcolor: "#0B8043",
         },
       },
       icon: <ThumbUpIcon />,
       clicked: () => {
-        props.clicked();
+        props.clicked("positive");
       },
     });
   } else {
     ratingButtons.push({
-      name: "reveal",
+      type: "reveal",
       color: "primary",
+      sx: {
+        marginBottom: 1,
+      },
       variant: "extended",
       icon: (
         <>
-          <AutorenewIcon sx={{ mr: 1 }} />
+          <VisibilityIcon sx={{ mr: 1 }} />
           Reveal
         </>
       ),
       clicked: () => {
-        props.clicked();
+        props.clicked("reveal");
       },
     });
   }
@@ -76,7 +79,7 @@ const RatingButtonGroup = (props) => {
         {ratingButtons.map((button) => (
           <Fab
             onClick={button.clicked}
-            key={button.name}
+            key={button.type}
             color={button.color}
             variant={button.variant}
             sx={{ ...button.sx, color: "white" }}

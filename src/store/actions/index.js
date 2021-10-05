@@ -8,3 +8,8 @@ export {
     fetchDictionaryList,
     deleteFavourite
 } from './favourite';
+
+export {
+    fetchPracticeList,
+    getNextQuestion
+} from './practice.js'

@@ -7,15 +7,17 @@ import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 
 import "./index.css";
 import App from "./App";
-import dictionaryReducer from './store/reducers/dictionary';
-import favouriteReducer from './store/reducers/favourite';
+import dictionaryReducer from "./store/reducers/dictionary";
+import favouriteReducer from "./store/reducers/favourite";
+import practiceReducer from "./store/reducers/practice";
 import reportWebVitals from "./reportWebVitals";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   dictionary: dictionaryReducer,
-  favourite: favouriteReducer
+  favourite: favouriteReducer,
+  practice: practiceReducer,
 });
 
 const store = createStore(
