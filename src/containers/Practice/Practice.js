@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
 
 import FlipCard from "../../components/Practice/FlipCard/FlipCard";
 import ProgressBar from "../../components/UI/ProgressBar/ProgressBar";
 import RatingButtonGroup from "../../components/Practice/RatingButtonGroup/RatingButtonGroup";
 import * as actionCreators from "../../store/actions";
+import DialogBox from "../../components/UI/DialogBox/DialogBox";
 
 const Practice = (props) => {
   const [isFlipped, setFlipped] = useState(false);
@@ -50,25 +53,56 @@ const Practice = (props) => {
           front={{
             question: props.practiceItem.word,
           }}
-          back={{ answer: "This is back of the card" }}
+          back={{
+            word: props.practiceItem.word,
+            partOfSpeech: props.practiceItem.meaning.pos,
+            definition: props.practiceItem.meaning.definition,
+            example: props.practiceItem.meaning.example,
+            note: props.practiceItem.meaning.note,
+          }}
         />
-        <ProgressBar />
+        <ProgressBar current={props.index} total={props.totalQuestions} />
         <RatingButtonGroup flipped={isFlipped} clicked={onRatingHandler} />
       </>
     );
   } else {
-    flipCard = <span>Loading...</span>;
+    flipCard = (
+      <Stack sx={{ margin: 3 }} direction="column">
+        <Skeleton sx={{ height: "47vh" }} variant="rectangular" />
+        <div style={{ marginTop: 20 }}>
+          <Skeleton sx={{ height: 50 }} variant="text" />
+        </div>
+      </Stack>
+    );
   }
 
-  return <>{flipCard}</>;
+  return (
+    <>
+      {flipCard}
+      <DialogBox
+        content="Do you want to start over?"
+        open={props.showComplete}
+        dismissLabel="Yes"
+        cancelled={() => {
+          props.fetchPracticeList();
+        }}
+        confirmLabel="Show Statistics"
+        confirmed={() => {
+          props.history.push("/statistics");
+        }}
+      />
+    </>
+  );
 };
 
 const mapStateToProps = (state) => {
   return {
-    practiceList: state.practice.practiceList,
     practiceItem: state.practice.practiceItem,
     loading: state.practice.loading,
     error: state.practice.error,
+    index: state.practice.currentIndex + 1,
+    totalQuestions: state.practice.practiceList.length,
+    showComplete: state.practice.showComplete,
   };
 };
 

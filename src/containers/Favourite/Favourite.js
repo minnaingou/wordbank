@@ -27,10 +27,10 @@ const Favourite = (props) => {
       dictionary: {
         partOfSpeech: dict.meaning.pos,
         definition: dict.meaning.definition,
-        example: dict.meaning.example
+        example: dict.meaning.example,
       },
     });
-  }
+  };
 
   const onDeleteHandler = (key) => {
     setDialog({
@@ -61,13 +61,15 @@ const Favourite = (props) => {
     list = (
       <Stack spacing={3} sx={{ minWidth: 275, margin: 2 }}>
         {[...Array(7)].map((_, i) => (
-          <Skeleton key={i} variant="text" />
+          <Skeleton key={i} variant="text" animation="wave" />
         ))}
       </Stack>
     );
   } else if (props.dictionaries && Object.keys(props.dictionaries).length) {
     list = Object.keys(props.dictionaries)
-      .sort((a, b) => props.dictionaries[a].word.localeCompare(props.dictionaries[b].word))
+      .sort((a, b) =>
+        props.dictionaries[a].word.localeCompare(props.dictionaries[b].word)
+      )
       .filter((key) => {
         const dict = props.dictionaries[key];
         if (searchKey) {
@@ -85,6 +87,7 @@ const Favourite = (props) => {
             partOfSpeech={dict.meaning.pos}
             example={dict.meaning.example}
             definition={dict.meaning.definition}
+            note={dict.meaning.note}
             edited={() => onEditHandler(key)}
             deleted={() => onDeleteHandler(key)}
             expand={itemExpanded}

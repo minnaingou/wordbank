@@ -87,7 +87,6 @@ const RatingButtonGroup = (props) => {
             {button.icon}
           </Fab>
         ))}
-        ;
       </Stack>
     </div>
   );

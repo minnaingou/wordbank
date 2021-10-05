@@ -30,7 +30,7 @@ export const fetchPracticeList = () => {
         // Intentionally added some delay to show off loading
         new Promise((resolve) => {
           setTimeout(() => {
-            dispatch(fetchPracticeListSuccess(res.data));            
+            dispatch(fetchPracticeListSuccess(res.data));
             resolve();
           }, 1000);
         });
@@ -42,8 +42,18 @@ export const fetchPracticeList = () => {
   };
 };
 
-export const getNextQuestion = () => {
+const getNextQuestionReady = () => {
   return {
     type: actionTypes.GET_NEXT_QUESTION,
+  };
+};
+
+export const getNextQuestion = () => {
+  return (dispatch) => {
+    // Delay to be in sync with card flip animation 
+    // This prevents next card content from being displayed before animation is over
+    setTimeout(() => {
+      dispatch(getNextQuestionReady());
+    }, 200);
   };
 };

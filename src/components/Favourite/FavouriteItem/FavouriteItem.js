@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import NotesIcon from "@mui/icons-material/Notes";
+import CommentIcon from "@mui/icons-material/Comment";
 import IconButton from "@mui/material/IconButton";
 import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 import { Stack } from "@mui/material";
@@ -14,9 +16,24 @@ const FavouriteItem = (props) => {
   let example = null;
   if (props.example) {
     example = (
-      <Typography variant="body2" sx={{ mt: 1.5 }} color="text.secondary">
-        Example: {props.example}
-      </Typography>
+      <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
+        <NotesIcon fontSize="small" style={{ fill: "gray" }} />
+        <Typography variant="body2" color="text.secondary">
+          {props.example}
+        </Typography>
+      </Stack>
+    );
+  }
+
+  let note = null;
+  if (props.note) {
+    note = (
+      <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
+        <CommentIcon fontSize="small" style={{ fill: "gray" }} />
+        <Typography variant="body2" color="text.secondary">
+          {props.note}
+        </Typography>
+      </Stack>
     );
   }
 
@@ -43,6 +60,7 @@ const FavouriteItem = (props) => {
       <AccordionDetails sx={{ textAlign: "left" }}>
         <Typography variant="body2">{props.definition}</Typography>
         {example}
+        {note}
         <Stack
           direction="row"
           spacing={1}

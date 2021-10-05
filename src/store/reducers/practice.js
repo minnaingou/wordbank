@@ -1,36 +1,35 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  practiceList: null,
+  practiceList: [],
   practiceItem: null,
   currentIndex: 0,
-  loading: false,
+  loading: true,
   error: null,
-};
-
-const getNextQuestion = (state) => {
-  return {
-    ...state,
-    //currentIndex: practiceList.length < state.currentIndex + 1 : 0,
-    currentIndex: state.currentIndex + 1,
-    practiceItem: state.practiceList[Object.keys(state.practiceList)[state.currentIndex + 1]]
-  };
+  showComplete: false,
 };
 
 const fetchPracticeListStart = (state) => {
   return {
     ...state,
+    showComplete: false,
     loading: true,
   };
 };
 
 const fetchPracticeListSuccess = (state, action) => {
+  const practiceList = Object.keys(action.practiceList).map((key) => {
+    return {
+      key,
+      ...action.practiceList[key],
+    };
+  });
   return {
     ...state,
     loading: false,
-    practiceList: action.practiceList,
+    practiceList,
     currentIndex: 0,
-    practiceItem: action.practiceList[Object.keys(action.practiceList)[0]]
+    practiceItem: practiceList[0],
   };
 };
 
@@ -39,6 +38,29 @@ const fetchPracticeListFail = (state, action) => {
     ...state,
     loading: false,
     error: action.error,
+  };
+};
+
+const getNextQuestion = (state) => {
+  console.log("current", state.currentIndex);
+  let nextIndex;
+  let showComplete = false;
+  if (state.practiceList.length - 1 === state.currentIndex) {
+    showComplete = true;
+    nextIndex = 0;
+  } else {
+    nextIndex = state.currentIndex + 1;
+  }
+  // const nextIndex =
+  //   state.practiceList.length - 1 === state.currentIndex
+  //     ? 0
+  //     : state.currentIndex + 1;
+  console.log("next", nextIndex);
+  return {
+    ...state,
+    currentIndex: nextIndex,
+    showComplete,
+    practiceItem: state.practiceList[nextIndex],
   };
 };
 

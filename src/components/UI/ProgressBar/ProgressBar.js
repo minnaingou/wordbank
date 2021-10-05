@@ -20,6 +20,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }));
 
 const ProgressBar = (props) => {
+  const progressPercent = Math.round(((props.current - 1) * 100) / props.total);
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <Stack
@@ -36,15 +37,15 @@ const ProgressBar = (props) => {
             variant="body2"
             color="text.secondary"
           >
-            12/100
+            {props.current}/{props.total}
           </Typography>
           <Typography
             sx={{ float: "right" }}
             variant="body2"
             color="text.secondary"
-          >{`${Math.round(40)}%`}</Typography>
+          >{`${progressPercent}%`}</Typography>
         </div>
-        <BorderLinearProgress variant="determinate" value={40} />
+        <BorderLinearProgress variant="determinate" value={progressPercent} />
       </Stack>
     </div>
   );

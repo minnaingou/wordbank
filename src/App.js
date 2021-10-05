@@ -25,7 +25,7 @@ function App() {
           <Route path="/saved" component={Favourite} />
           <Route path="/practice" component={Practice} />
           <Route path="/more" component={MoreOptions} />
-          {/* <Route component={Error404} /> */}
+          <Route render={() => <div>Move along.. Nothing to see here..</div>} />
         </Switch>
       </Layout>
     </div>
