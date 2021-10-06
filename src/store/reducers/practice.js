@@ -17,43 +17,30 @@ const fetchPracticeListStart = (state) => {
   };
 };
 
-const sortQuestions = (a, b) => {
-  // a<b=-1, a>b=1, 0
-  if (!a.practice && b.practice) {
-    return -1;
-  } else if (a.practice && !b.practice) {
-    return 1;
-  } else if (!a.practice && !b.practice) {
-    return 0;
-  } else {
-    const compare =
-      a.practice.success / a.practice.attempt -
-      b.practice.success / b.practice.attempt;
-    if (compare < 0) {
-      return -1;
-    } else if (compare > 0) {
-      return 1;
-    } else {
-      return 0;
-    }
-  }
-};
-
 const fetchPracticeListSuccess = (state, action) => {
-  const practiceList = Object.keys(action.practiceList).map((key) => {
-    return {
-      key,
-      practice: {
-        attempt: 0,
-        success: 0,
-      },
-      ...action.practiceList[key],
-    };
-  });
-  console.log("the list", practiceList);
-
-  const sortedPracticeList = practiceList.sort(sortQuestions);
-  console.log("sorted list", sortedPracticeList);
+  const practiceList = Object.keys(action.practiceList)
+    .map((key) => {
+      return {
+        key,
+        // for items that haven't been practiced
+        practice: {
+          attempt: 0,
+          success: 0,
+        },        
+        ...action.practiceList[key],
+        synced: true
+      };
+    })
+    .sort((a, b) => {
+      const compare =
+        a.practice.success / a.practice.attempt -
+        b.practice.success / b.practice.attempt;
+      if (Number.isNaN(compare)) {
+        return -1;
+      } else {
+        return compare;
+      }
+    });
   return {
     ...state,
     loading: false,
