@@ -9,6 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import NotesIcon from "@mui/icons-material/Notes";
 import CommentIcon from "@mui/icons-material/Comment";
 import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
 import { Stack } from "@mui/material";
 
@@ -17,7 +18,9 @@ const FavouriteItem = (props) => {
   if (props.example) {
     example = (
       <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
-        <NotesIcon fontSize="small" style={{ fill: "gray" }} />
+        <Tooltip title="Example">
+          <NotesIcon fontSize="small" style={{ fill: "gray" }} />
+        </Tooltip>
         <Typography variant="body2" color="text.secondary">
           {props.example}
         </Typography>
@@ -29,7 +32,9 @@ const FavouriteItem = (props) => {
   if (props.note) {
     note = (
       <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
-        <CommentIcon fontSize="small" style={{ fill: "gray" }} />
+        <Tooltip title="Note">
+          <CommentIcon fontSize="small" style={{ fill: "gray" }} />
+        </Tooltip>
         <Typography variant="body2" color="text.secondary">
           {props.note}
         </Typography>

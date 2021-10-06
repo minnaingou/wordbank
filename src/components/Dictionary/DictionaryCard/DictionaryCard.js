@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import Tooltip from "@mui/material/Tooltip";
 
 const DictionaryCard = (props) => {
   let example = null;
@@ -19,9 +20,11 @@ const DictionaryCard = (props) => {
     <Card sx={{ minWidth: 275, textAlign: "left", margin: 2 }}>
       <CardHeader
         action={
-          <IconButton aria-label="save" onClick={props.saved}>
-            <FavoriteIcon />
-          </IconButton>
+          <Tooltip title="Save to favourite">
+            <IconButton aria-label="save" onClick={props.saved}>
+              <FavoriteIcon />
+            </IconButton>
+          </Tooltip>
         }
         title={props.word}
         subheader={props.partOfSpeech}

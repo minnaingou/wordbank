@@ -26,13 +26,9 @@ const FloatingActionButton = (props) => {
   const getButton = () => {
     switch (props.type) {
       case "add":
-        return <AddIcon onClick={handleButtonClick} />;
+        return <AddIcon />;
       case "save":
-        return props.progress.success ? (
-          <CheckIcon />
-        ) : (
-          <SaveIcon onClick={handleButtonClick} />
-        );
+        return props.progress.success ? <CheckIcon /> : <SaveIcon />;
       default:
         return null;
     }
@@ -45,6 +41,9 @@ const FloatingActionButton = (props) => {
         sx={props.showProgress ? buttonSx : null}
         className={styles.Fab}
         disabled={props.disabled}
+        onClick={() => {
+          !props.progress.success && handleButtonClick();
+        }}
       >
         {getButton()}
       </Fab>

@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import { Stack } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
 import NotesIcon from "@mui/icons-material/Notes";
+import Tooltip from "@mui/material/Tooltip";
 
 const FlipCard = (props) => {
   const cardContentSx = {
@@ -46,7 +47,9 @@ const FlipCard = (props) => {
                   spacing={1}
                   sx={{ mt: 1.5, justifyContent: "center" }}
                 >
-                  <NotesIcon fontSize="small" style={{ fill: "gray" }} />
+                  <Tooltip title="Example">
+                    <NotesIcon fontSize="small" style={{ fill: "gray" }} />
+                  </Tooltip>
                   <Typography variant="body2" color="text.secondary">
                     {props.back.example}
                   </Typography>
@@ -58,7 +61,9 @@ const FlipCard = (props) => {
                   spacing={1}
                   sx={{ mt: 1, justifyContent: "center" }}
                 >
-                  <CommentIcon fontSize="small" style={{ fill: "gray" }} />
+                  <Tooltip title="Note">
+                    <CommentIcon fontSize="small" style={{ fill: "gray" }} />
+                  </Tooltip>
                   <Typography variant="body2" color="text.secondary">
                     {props.back.note}
                   </Typography>
