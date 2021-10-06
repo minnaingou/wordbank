@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 
 import FlipCard from "../../components/Practice/FlipCard/FlipCard";
 import ProgressBar from "../../components/UI/ProgressBar/ProgressBar";
-import RatingButtonGroup from "../../components/Practice/RatingButtonGroup/RatingButtonGroup";
+import VotingButtonGroup from "../../components/Practice/VotingButtonGroup/VotingButtonGroup";
 import * as actionCreators from "../../store/actions";
 import DialogBox from "../../components/UI/DialogBox/DialogBox";
 
@@ -17,7 +17,7 @@ const Practice = (props) => {
     // eslint-disable-next-line
   }, []);
 
-  const onRatingHandler = (type) => {
+  const onVotingHandler = (type) => {
     setFlipped(!isFlipped);
     switch (type) {
       case "reveal": {
@@ -40,7 +40,7 @@ const Practice = (props) => {
         break;
       }
       default:
-        console.error("Unknown rating handler");
+        console.error("Unknown voting handler");
     }
   };
 
@@ -62,15 +62,15 @@ const Practice = (props) => {
           }}
         />
         <ProgressBar current={props.index} total={props.totalQuestions} />
-        <RatingButtonGroup flipped={isFlipped} clicked={onRatingHandler} />
+        <VotingButtonGroup flipped={isFlipped} clicked={onVotingHandler} />
       </>
     );
   } else {
     flipCard = (
       <Stack sx={{ margin: 3 }} direction="column">
-        <Skeleton sx={{ height: "47vh" }} variant="rectangular" />
-        <div style={{ marginTop: 20 }}>
-          <Skeleton sx={{ height: 50 }} variant="text" />
+        <Skeleton sx={{ height: "46vh" }} variant="rectangular" />
+        <div style={{ marginTop: 40 }}>
+          <Skeleton sx={{ height: 20 }} variant="text" />
         </div>
       </Stack>
     );
@@ -80,7 +80,7 @@ const Practice = (props) => {
     <>
       {flipCard}
       <DialogBox
-        content="Do you want to start over?"
+        content="Congratulations! Do you want to start over?"
         open={props.showComplete}
         dismissLabel="Yes"
         cancelled={() => {

@@ -6,12 +6,12 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import BlockIcon from "@mui/icons-material/Block";
 import { Stack } from "@mui/material";
 
-import styles from "./RatingButtonGroup.module.css";
+import styles from "./VotingButtonGroup.module.css";
 
-const RatingButtonGroup = (props) => {
-  const ratingButtons = [];
+const VotingButtonGroup = (props) => {
+  const votingButtons = [];
   if (props.flipped) {
-    ratingButtons.push({
+    votingButtons.push({
       type: "negative",
       color: "inherit",
       sx: {
@@ -25,7 +25,7 @@ const RatingButtonGroup = (props) => {
         props.clicked("negative");
       },
     });
-    ratingButtons.push({
+    votingButtons.push({
       type: "skip",
       color: "inherit",
       sx: {
@@ -39,7 +39,7 @@ const RatingButtonGroup = (props) => {
         props.clicked("skip");
       },
     });
-    ratingButtons.push({
+    votingButtons.push({
       type: "positive",
       color: "inherit",
       sx: {
@@ -54,7 +54,7 @@ const RatingButtonGroup = (props) => {
       },
     });
   } else {
-    ratingButtons.push({
+    votingButtons.push({
       type: "reveal",
       color: "primary",
       sx: {
@@ -76,7 +76,7 @@ const RatingButtonGroup = (props) => {
   return (
     <div>
       <Stack direction="row" spacing={2} className={styles.Fab}>
-        {ratingButtons.map((button) => (
+        {votingButtons.map((button) => (
           <Fab
             onClick={button.clicked}
             key={button.type}
@@ -92,4 +92,4 @@ const RatingButtonGroup = (props) => {
   );
 };
 
-export default RatingButtonGroup;
+export default VotingButtonGroup;

@@ -37,7 +37,8 @@ const ProgressBar = (props) => {
             variant="body2"
             color="text.secondary"
           >
-            {props.current}/{props.total}
+            {props.current > props.total ? props.total : props.current}/
+            {props.total}
           </Typography>
           <Typography
             sx={{ float: "right" }}

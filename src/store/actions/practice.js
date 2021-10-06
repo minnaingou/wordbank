@@ -44,13 +44,13 @@ export const fetchPracticeList = () => {
 
 const getNextQuestionReady = () => {
   return {
-    type: actionTypes.GET_NEXT_QUESTION,
+    type: actionTypes.GET_NEXT_QUESTION_READY,
   };
 };
 
 export const getNextQuestion = () => {
   return (dispatch) => {
-    // Delay to be in sync with card flip animation 
+    // Delay to be in sync with card flip animation
     // This prevents next card content from being displayed before animation is over
     setTimeout(() => {
       dispatch(getNextQuestionReady());

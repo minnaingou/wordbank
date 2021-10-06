@@ -17,13 +17,43 @@ const fetchPracticeListStart = (state) => {
   };
 };
 
+const sortQuestions = (a, b) => {
+  // a<b=-1, a>b=1, 0
+  if (!a.practice && b.practice) {
+    return -1;
+  } else if (a.practice && !b.practice) {
+    return 1;
+  } else if (!a.practice && !b.practice) {
+    return 0;
+  } else {
+    const compare =
+      a.practice.success / a.practice.attempt -
+      b.practice.success / b.practice.attempt;
+    if (compare < 0) {
+      return -1;
+    } else if (compare > 0) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+};
+
 const fetchPracticeListSuccess = (state, action) => {
   const practiceList = Object.keys(action.practiceList).map((key) => {
     return {
       key,
+      practice: {
+        attempt: 0,
+        success: 0,
+      },
       ...action.practiceList[key],
     };
   });
+  console.log("the list", practiceList);
+
+  const sortedPracticeList = practiceList.sort(sortQuestions);
+  console.log("sorted list", sortedPracticeList);
   return {
     ...state,
     loading: false,
@@ -42,25 +72,17 @@ const fetchPracticeListFail = (state, action) => {
 };
 
 const getNextQuestion = (state) => {
-  console.log("current", state.currentIndex);
-  let nextIndex;
-  let showComplete = false;
-  if (state.practiceList.length - 1 === state.currentIndex) {
-    showComplete = true;
-    nextIndex = 0;
-  } else {
-    nextIndex = state.currentIndex + 1;
-  }
-  // const nextIndex =
-  //   state.practiceList.length - 1 === state.currentIndex
-  //     ? 0
-  //     : state.currentIndex + 1;
-  console.log("next", nextIndex);
+  const nextIndex = state.currentIndex + 1;
+  const showComplete = state.practiceList.length - 1 === state.currentIndex;
+  const practiceItem = showComplete
+    ? state.practiceItem
+    : state.practiceList[state.currentIndex + 1];
+
   return {
     ...state,
     currentIndex: nextIndex,
     showComplete,
-    practiceItem: state.practiceList[nextIndex],
+    practiceItem,
   };
 };
 
@@ -72,7 +94,7 @@ const reducer = (state = initialState, action) => {
       return fetchPracticeListSuccess(state, action);
     case actionTypes.FETCH_PRACTICE_LIST_FAIL:
       return fetchPracticeListFail(state, action);
-    case actionTypes.GET_NEXT_QUESTION:
+    case actionTypes.GET_NEXT_QUESTION_READY:
       return getNextQuestion(state, action);
     default:
       return state;
