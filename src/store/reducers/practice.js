@@ -25,16 +25,17 @@ const fetchPracticeListSuccess = (state, action) => {
         // for items that haven't been practiced
         practice: {
           attempt: 0,
-          success: 0,
-        },        
+          positive: 0,
+          negative: 0,
+          skip: 0,
+        },
         ...action.practiceList[key],
-        synced: true
       };
     })
     .sort((a, b) => {
       const compare =
-        a.practice.success / a.practice.attempt -
-        b.practice.success / b.practice.attempt;
+        a.practice.positive / a.practice.attempt -
+        b.practice.positive / b.practice.attempt;
       if (Number.isNaN(compare)) {
         return -1;
       } else {
@@ -58,7 +59,7 @@ const fetchPracticeListFail = (state, action) => {
   };
 };
 
-const getNextQuestion = (state) => {
+const getNextQuestionReady = (state) => {
   const nextIndex = state.currentIndex + 1;
   const showComplete = state.practiceList.length - 1 === state.currentIndex;
   const practiceItem = showComplete
@@ -73,6 +74,19 @@ const getNextQuestion = (state) => {
   };
 };
 
+const votePracticeSuccess = (state, action) => {
+  const practiceList = [...state.practiceList];
+  const practiceItem = practiceList[state.currentIndex];
+  practiceList.splice(state.currentIndex, 1, {
+    ...practiceItem,
+    practice: { ...action.practice },
+  });
+  return {
+    ...state,
+    practiceList,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_PRACTICE_LIST_START:
@@ -82,7 +96,9 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_PRACTICE_LIST_FAIL:
       return fetchPracticeListFail(state, action);
     case actionTypes.GET_NEXT_QUESTION_READY:
-      return getNextQuestion(state, action);
+      return getNextQuestionReady(state, action);
+    case actionTypes.VOTE_PRACTICE_SUCCESS:
+      return votePracticeSuccess(state, action);
     default:
       return state;
   }

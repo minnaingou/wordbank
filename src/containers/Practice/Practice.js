@@ -21,22 +21,22 @@ const Practice = (props) => {
     setFlipped(!isFlipped);
     switch (type) {
       case "reveal": {
-        console.log("handle reveal");
+        setFlipped(!isFlipped);
         break;
       }
       case "positive": {
-        console.log("handle positive");
-        props.getNextQuestion();
+        setFlipped(!isFlipped);
+        props.votePractice(props.practiceItem, "positive");
         break;
       }
       case "negative": {
-        console.log("handle negative");
-        props.getNextQuestion();
+        setFlipped(!isFlipped);
+        props.votePractice(props.practiceItem, "negative");
         break;
       }
       case "skip": {
-        console.log("handle skip");
-        props.getNextQuestion();
+        setFlipped(!isFlipped);
+        props.votePractice(props.practiceItem, "skip");
         break;
       }
       default:
@@ -109,7 +109,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchPracticeList: () => dispatch(actionCreators.fetchPracticeList()),
-    getNextQuestion: () => dispatch(actionCreators.getNextQuestion()),
+    votePractice: (practiceItem, voted) =>
+      dispatch(actionCreators.votePractice(practiceItem, voted)),
   };
 };
 

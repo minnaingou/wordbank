@@ -48,12 +48,30 @@ const getNextQuestionReady = () => {
   };
 };
 
-export const getNextQuestion = () => {
+const votePracticeSuccess = (practiceData) => {
+  return {
+    type: actionTypes.VOTE_PRACTICE_SUCCESS,
+    practice: practiceData,
+  };
+};
+
+export const votePractice = (practiceItem, voted) => {
   return (dispatch) => {
-    // Delay to be in sync with card flip animation
-    // This prevents next card content from being displayed before animation is over
-    setTimeout(() => {
-      dispatch(getNextQuestionReady());
-    }, 200);
+    const practiceUpdated = {
+      practice: {
+        ...practiceItem.practice,
+        attempt: practiceItem.practice.attempt + 1,
+        [voted]: practiceItem.practice[voted] + 1,
+      },
+    };
+    axiosFirebase
+      .patch("/dictionaries/" + practiceItem.key + ".json", practiceUpdated)
+      .then((res) => {
+        dispatch(votePracticeSuccess(res.data));
+        dispatch(getNextQuestionReady());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };

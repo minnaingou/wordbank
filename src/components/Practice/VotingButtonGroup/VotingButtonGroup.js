@@ -64,7 +64,7 @@ const VotingButtonGroup = (props) => {
       icon: (
         <>
           <VisibilityIcon sx={{ mr: 1 }} />
-          Reveal
+          REVEAL ANSWER
         </>
       ),
       clicked: () => {

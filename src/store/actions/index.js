@@ -11,5 +11,5 @@ export {
 
 export {
     fetchPracticeList,
-    getNextQuestion
+    votePractice
 } from './practice.js'
