@@ -10,6 +10,7 @@ import App from "./App";
 import dictionaryReducer from "./store/reducers/dictionary";
 import favouriteReducer from "./store/reducers/favourite";
 import practiceReducer from "./store/reducers/practice";
+import statisticsReducer from "./store/reducers/statistics";
 import reportWebVitals from "./reportWebVitals";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   dictionary: dictionaryReducer,
   favourite: favouriteReducer,
   practice: practiceReducer,
+  statistics: statisticsReducer,
 });
 
 const store = createStore(

@@ -33,6 +33,10 @@ const fetchPracticeListSuccess = (state, action) => {
       };
     })
     .sort((a, b) => {
+      const sortByAttempt = a.practice.attempt - b.practice.attempt;
+      if (sortByAttempt) {
+        return sortByAttempt;
+      }
       const compare =
         a.practice.positive / a.practice.attempt -
         b.practice.positive / b.practice.attempt;

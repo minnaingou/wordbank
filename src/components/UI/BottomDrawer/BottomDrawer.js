@@ -8,7 +8,7 @@ import ListItemText from "@mui/material/ListItemText";
 
 const BottomDrawer = (props) => {
   const list = () => (
-    <Box sx={{ width: "auto", paddingBottom: 9 }} role="presentation">
+    <Box sx={{ width: "auto", paddingBottom: 7 }} role="presentation">
       <List>
         {props.items.map((item, index) => (
           <ListItem key={index} button onClick={item.clicked}>

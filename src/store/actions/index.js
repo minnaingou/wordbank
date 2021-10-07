@@ -12,4 +12,8 @@ export {
 export {
     fetchPracticeList,
     votePractice
-} from './practice.js'
+} from './practice'
+
+export {
+    fetchStatistics,
+} from './statistics'
