@@ -2,10 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import PetsIcon from "@mui/icons-material/Pets";
 import Stack from "@mui/material/Stack";
+import Skeleton from "@mui/material/Skeleton";
 
 import SearchBar from "../../components/UI/SearchBar/SearchBar";
 import * as actionCreators from "../../store/actions";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import DictionaryCard from "../../components/Dictionary/DictionaryCard/DictionaryCard";
 import FloatingActionButton from "../../components/UI/FloatingActionButton/FloatingActionButton";
 
@@ -27,7 +27,23 @@ const Dictionary = (props) => {
 
   let searchResult;
   if (props.loading) {
-    searchResult = <Spinner />;
+    searchResult = (
+      <Stack
+        sx={{ margin: 2 }}
+        direction="column"
+        spacing={2}
+        alignItems="center"
+        justifyContent="center"
+      >
+        {[...Array(2)].map((_, i) => (
+          <Skeleton
+            key={i}
+            sx={{ height: "40vh", width: 350 }}
+            variant="rectangular"
+          />
+        ))}
+      </Stack>
+    );
   } else if (props.dictionaries) {
     searchResult = (
       <div style={{ paddingBottom: 50 }}>
