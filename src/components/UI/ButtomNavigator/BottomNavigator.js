@@ -25,7 +25,7 @@ const BottomNavigator = (props) => {
     <Box sx={{ width: 500 }}>
       <Paper
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 1300 }}
-        elevation={3}
+        elevation={10}
       >
         <BottomNavigation
           showLabels

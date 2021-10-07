@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Container from "@mui/material/Container";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import InfoIcon from "@mui/icons-material/Info";
+import { withRouter } from "react-router";
 
 import BottomNavigator from "../UI/ButtomNavigator/BottomNavigator";
 import BottomDrawer from "../UI/BottomDrawer/BottomDrawer";
@@ -15,16 +16,16 @@ const Layout = (props) => {
       label: "Statistics",
       icon: <BarChartIcon />,
       clicked: () => {
+        props.history.push("/statistics");
         setShowDrawer(false);
-        console.log("stats clicked");
       },
     },
     {
       label: "About",
       icon: <InfoIcon />,
       clicked: () => {
+        props.history.push("/about");
         setShowDrawer(false);
-        console.log("about clicked");
       },
     },
   ];
@@ -43,4 +44,4 @@ const Layout = (props) => {
   );
 };
 
-export default Layout;
+export default withRouter(Layout);

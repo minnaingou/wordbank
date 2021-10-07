@@ -5,7 +5,8 @@ import Layout from "./components/Layout/Layout";
 import Dictionary from "./containers/Dictionary/Dictionary";
 import WordInput from "./containers/Dictionary/WordInput/WordInput";
 import Favourite from "./containers/Favourite/Favourite";
-import MoreOptions from "./containers/MoreOptions/MoreOptions";
+import Statistics from "./containers/Statistics/Statistics";
+import About from "./components/About/About";
 import Practice from "./containers/Practice/Practice";
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
           />
           <Route path="/saved" component={Favourite} />
           <Route path="/practice" component={Practice} />
-          <Route path="/more" component={MoreOptions} />
+          <Route path="/statistics" component={Statistics} />
+          <Route path="/about" component={About} />
           <Route render={() => <div>Move along.. Nothing to see here..</div>} />
         </Switch>
       </Layout>
