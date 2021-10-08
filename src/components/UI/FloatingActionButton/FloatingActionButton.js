@@ -42,7 +42,12 @@ const FloatingActionButton = (props) => {
         className={styles.Fab}
         disabled={props.disabled}
         onClick={() => {
-          !props.progress.success && handleButtonClick();
+          if (
+            props.type !== "save" ||
+            (props.type === "save" && !props.progress.success)
+          ) {
+            handleButtonClick();
+          }
         }}
       >
         {getButton()}

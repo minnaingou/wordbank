@@ -1,19 +1,18 @@
 export {
-    fetchDictionary,
-    saveDictionary,
-    saveDictionaryCleanup
-} from './dictionary';
+  fetchDictionary,
+  saveDictionary,
+  saveDictionaryCleanup,
+} from "./dictionary";
+
+export { fetchDictionaryList, deleteFavourite } from "./favourite";
+
+export { fetchPracticeList, votePractice } from "./practice";
+
+export { fetchStatistics } from "./statistics";
 
 export {
-    fetchDictionaryList,
-    deleteFavourite
-} from './favourite';
-
-export {
-    fetchPracticeList,
-    votePractice
-} from './practice'
-
-export {
-    fetchStatistics,
-} from './statistics'
+  authenticate,
+  authLogout,
+  loginStatusCheck,
+  authCleanup,
+} from "./auth";

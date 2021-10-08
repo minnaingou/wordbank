@@ -21,11 +21,12 @@ const fetchStatisticsFail = (error) => {
   };
 };
 
-export const fetchStatistics = () => {
+export const fetchStatistics = (userId) => {
   return (dispatch) => {
     dispatch(fetchStatisticsStart());
+    const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
     axiosFirebase
-      .get("/dictionaries.json")
+      .get("/dictionaries.json" + queryParams)
       .then((res) => {
         dispatch(fetchStatisticsSuccess(res.data));
       })

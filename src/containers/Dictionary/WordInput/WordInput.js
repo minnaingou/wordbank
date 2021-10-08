@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
@@ -109,7 +110,7 @@ const WordInput = (props) => {
 
   const onFabHandler = () => {
     const dictionary = {
-      userId: "dummy",
+      userId: props.userId,
       word: form.word.value,
       meaning: {
         pos: form.pos.value,
@@ -124,6 +125,7 @@ const WordInput = (props) => {
 
   return (
     <>
+      {!props.isAuthenticated && <Redirect to="/auth/login" />}
       <Box
         component="form"
         sx={{
@@ -220,6 +222,8 @@ const mapStateToProps = (state) => {
     saving: state.dictionary.saveProgress === "saving" ? true : false,
     saved: state.dictionary.saveProgress === "saved" ? true : false,
     error: state.dictionary.error,
+    userId: state.auth.userId,
+    isAuthenticated: state.auth.token != null,
   };
 };
 

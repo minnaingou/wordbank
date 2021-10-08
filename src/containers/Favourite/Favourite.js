@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import PetsIcon from "@mui/icons-material/Pets";
 import Stack from "@mui/material/Stack";
 import Skeleton from "@mui/material/Skeleton";
@@ -15,7 +16,7 @@ const Favourite = (props) => {
   const [searchKey, setSearchKey] = useState(null);
 
   useEffect(() => {
-    props.fetchDictionaries();
+    props.fetchDictionaries(props.userId);
     // eslint-disable-next-line
   }, []);
 
@@ -112,6 +113,7 @@ const Favourite = (props) => {
 
   return (
     <>
+      {!props.isAuthenticated && <Redirect to="/auth/login" />}
       <SearchBar changed={onSearchChangeHandler} />
       <div style={{ paddingBottom: 70 }}>{list}</div>
       <DialogBox
@@ -130,12 +132,15 @@ const mapStateToProps = (state) => {
   return {
     dictionaries: state.favourite.dictionaries,
     loading: state.favourite.loading,
+    userId: state.auth.userId,
+    isAuthenticated: state.auth.token != null,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchDictionaries: () => dispatch(actionCreators.fetchDictionaryList()),
+    fetchDictionaries: (userId) =>
+      dispatch(actionCreators.fetchDictionaryList(userId)),
     deleteFavourite: (key) => dispatch(actionCreators.deleteFavourite(key)),
   };
 };

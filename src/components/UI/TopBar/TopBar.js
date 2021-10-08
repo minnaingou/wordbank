@@ -12,6 +12,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { withRouter } from "react-router-dom";
 
 const TopBar = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -83,7 +84,11 @@ const TopBar = (props) => {
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
             {props.loggedIn && (
-              <MenuItem>
+              <MenuItem
+                onClick={() => {
+                  props.history.push("/auth/logout");
+                }}
+              >
                 <ListItemIcon>
                   <LogoutIcon fontSize="small" />
                 </ListItemIcon>
@@ -91,7 +96,11 @@ const TopBar = (props) => {
               </MenuItem>
             )}
             {!props.loggedIn && (
-              <MenuItem>
+              <MenuItem
+                onClick={() => {
+                  props.history.push("/auth/login");
+                }}
+              >
                 <ListItemIcon>
                   <LoginIcon fontSize="small" />
                 </ListItemIcon>
@@ -99,7 +108,11 @@ const TopBar = (props) => {
               </MenuItem>
             )}
             {!props.loggedIn && (
-              <MenuItem>
+              <MenuItem
+                onClick={() => {
+                  props.history.push("/auth/register");
+                }}
+              >
                 <ListItemIcon>
                   <PersonAddIcon fontSize="small" />
                 </ListItemIcon>
@@ -113,4 +126,4 @@ const TopBar = (props) => {
   );
 };
 
-export default TopBar;
+export default withRouter(TopBar);

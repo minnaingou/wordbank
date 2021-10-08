@@ -11,6 +11,7 @@ import dictionaryReducer from "./store/reducers/dictionary";
 import favouriteReducer from "./store/reducers/favourite";
 import practiceReducer from "./store/reducers/practice";
 import statisticsReducer from "./store/reducers/statistics";
+import authReducer from "./store/reducers/auth";
 import reportWebVitals from "./reportWebVitals";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   favourite: favouriteReducer,
   practice: practiceReducer,
   statistics: statisticsReducer,
+  auth: authReducer,
 });
 
 const store = createStore(

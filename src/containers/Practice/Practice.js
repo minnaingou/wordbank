@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
+import PetsIcon from "@mui/icons-material/Pets";
 
 import FlipCard from "../../components/Practice/FlipCard/FlipCard";
 import ProgressBar from "../../components/UI/ProgressBar/ProgressBar";
@@ -13,7 +15,7 @@ const Practice = (props) => {
   const [isFlipped, setFlipped] = useState(false);
 
   useEffect(() => {
-    props.fetchPracticeList();
+    props.fetchPracticeList(props.userId);
     // eslint-disable-next-line
   }, []);
 
@@ -65,7 +67,7 @@ const Practice = (props) => {
         <VotingButtonGroup flipped={isFlipped} clicked={onVotingHandler} />
       </>
     );
-  } else {
+  } else if (props.loading) {
     flipCard = (
       <Stack sx={{ margin: 3 }} direction="column">
         <Skeleton sx={{ height: "46vh" }} variant="rectangular" />
@@ -74,17 +76,31 @@ const Practice = (props) => {
         </div>
       </Stack>
     );
+  } else {
+    flipCard = (
+      <Stack
+        direction="column"
+        spacing={2}
+        alignItems="center"
+        justifyContent="center"
+        sx={{ height: "70vh" }}
+      >
+        <PetsIcon fontSize="large" />
+        <span>Add few words to the list to start practicing</span>
+      </Stack>
+    );
   }
 
   return (
     <>
+      {!props.isAuthenticated && <Redirect to="/auth/login" />}
       {flipCard}
       <DialogBox
         content="Congratulations! Do you want to start over?"
         open={props.showComplete}
         dismissLabel="Yes"
         cancelled={() => {
-          props.fetchPracticeList();
+          props.fetchPracticeList(props.userId);
         }}
         confirmLabel="Show Statistics"
         confirmed={() => {
@@ -103,12 +119,15 @@ const mapStateToProps = (state) => {
     index: state.practice.currentIndex + 1,
     totalQuestions: state.practice.practiceList.length,
     showComplete: state.practice.showComplete,
+    userId: state.auth.userId,
+    isAuthenticated: state.auth.token != null,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPracticeList: () => dispatch(actionCreators.fetchPracticeList()),
+    fetchPracticeList: (userId) =>
+      dispatch(actionCreators.fetchPracticeList(userId)),
     votePractice: (practiceItem, voted) =>
       dispatch(actionCreators.votePractice(practiceItem, voted)),
   };

@@ -36,7 +36,7 @@ const Layout = (props) => {
 
   return (
     <Container maxWidth="sm" sx={{ height: "100vh" }} disableGutters>
-      <TopBar />
+      <TopBar loggedIn={props.authenticated} />
       <main>{props.children}</main>
       <BottomNavigator clickedMore={onToggleHandler} />
       <BottomDrawer show={showDrawer} items={drawerItems} />

@@ -5,14 +5,14 @@ const initialState = {
   word: null,
   dictionaries: null,
   saveProgress: null,
-  error: null
+  error: null,
 };
 
 const fetchDictionaryStart = (state) => {
   return {
     ...state,
     loading: true,
-    error: null
+    error: null,
   };
 };
 
@@ -22,7 +22,7 @@ const fetchDictionarySuccess = (state, action) => {
     loading: false,
     word: action.payload.word,
     dictionaries: action.payload.dictionaries,
-    error: null
+    error: null,
   };
 };
 
@@ -38,7 +38,7 @@ const saveDictionaryStart = (state, action) => {
   return {
     ...state,
     saveProgress: "saving",
-    error: null
+    error: null,
   };
 };
 
@@ -46,7 +46,7 @@ const saveDictionarySuccess = (state, action) => {
   return {
     ...state,
     saveProgress: "saved",
-    error: null
+    error: null,
   };
 };
 
@@ -60,8 +60,9 @@ const saveDictionaryFail = (state, action) => {
 
 const saveDictionaryCleanup = (state) => {
   return {
+    ...state,
     saveProgress: null,
-    error: null
+    error: null,
   };
 };
 

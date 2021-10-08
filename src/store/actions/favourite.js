@@ -21,21 +21,20 @@ const fetchDictionaryListFail = (error) => {
   };
 };
 
-export const fetchDictionaryList = () => {
+export const fetchDictionaryList = (userId) => {
   return (dispatch) => {
     dispatch(fetchDictionaryListStart());
+    const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
     axiosFirebase
-      .get("/dictionaries.json")
+      .get("/dictionaries.json" + queryParams)
       .then((res) => {
-
         // Intentionally added some delay to show off loading
-        new Promise(resolve => {
+        new Promise((resolve) => {
           setTimeout(() => {
             dispatch(fetchDictionaryListSuccess(res.data));
             resolve();
           }, 1000);
-        })
-        
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -47,7 +46,7 @@ export const fetchDictionaryList = () => {
 const deleteFavouriteSuccess = (removedItem) => {
   return {
     type: actionTypes.DELETE_FAVOURITE_SUCCESS,
-    removedItem
+    removedItem,
   };
 };
 

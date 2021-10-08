@@ -21,11 +21,12 @@ const fetchPracticeListFail = (error) => {
   };
 };
 
-export const fetchPracticeList = () => {
+export const fetchPracticeList = (userId) => {
   return (dispatch) => {
     dispatch(fetchPracticeListStart());
+    const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
     axiosFirebase
-      .get("/dictionaries.json")
+      .get("/dictionaries.json" + queryParams)
       .then((res) => {
         // Intentionally added some delay to show off loading
         new Promise((resolve) => {
