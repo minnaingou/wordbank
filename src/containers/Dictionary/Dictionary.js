@@ -38,7 +38,7 @@ const Dictionary = (props) => {
         {[...Array(2)].map((_, i) => (
           <Skeleton
             key={i}
-            sx={{ height: "40vh", width: 350 }}
+            sx={{ height: "30vh", width: '100%' }}
             variant="rectangular"
           />
         ))}
