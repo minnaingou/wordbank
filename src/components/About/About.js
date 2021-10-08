@@ -28,7 +28,7 @@ const About = () => {
           About WordBank
         </span>
       </Typography>
-      <div style={{ border: "1px solid black", borderRadius: "5%" }}>
+      <div style={{ border: "1px solid black" }}>
         <Typography variant="body2" gutterBottom m={2}>
           Have you ever come across an unfamiliar word and looked it up in a
           dictionary, only to forget it a few moments later? WordBank is the app
@@ -54,29 +54,31 @@ const About = () => {
       >
         <span style={{ background: "white", padding: "0 10px" }}>About Me</span>
       </Typography>
-      <div style={{ border: "1px solid black", borderRadius: "5%" }}>
+      <div style={{ border: "1px solid black" }}>
         <Typography variant="body2" gutterBottom m={2}>
           I'm Min Naing Oo, a Backend Developer with little to no exposure to
           the modern frontend frameworks. I started learning React a few weeks
           back and this app is the result of my effort to make use of what I've
           learned so far.
         </Typography>
-        <Link
-          href="https://www.linkedin.com/in/min-naing-oo-56b30284/"
-          target="_blank"
-          underline="hover"
-        >
-          <LinkedInIcon fontSize="small" /> Find me on LinkedIn
-        </Link>
-        <br />
-        <Link
-          href="mailto:minnaingoo@outlook.com"
-          target="_blank"
-          underline="hover"
-          sx={{ verticalAlign: "middle" }}
-        >
-          <EmailIcon fontSize="small" /> Send me an email
-        </Link>
+        <div style={{ textAlign: "left", paddingLeft: 20 }}>
+          <Link
+            href="https://www.linkedin.com/in/min-naing-oo-56b30284/"
+            target="_blank"
+            underline="hover"
+          >
+            <LinkedInIcon fontSize="small" /> Find me on LinkedIn
+          </Link>
+          <br />
+          <Link
+            href="mailto:minnaingoo@outlook.com"
+            target="_blank"
+            underline="hover"
+            sx={{ verticalAlign: "middle" }}
+          >
+            <EmailIcon fontSize="small" /> Send me an email
+          </Link>
+        </div>
         <br />
         <br />
       </div>
@@ -92,10 +94,10 @@ const About = () => {
         }}
       >
         <span style={{ background: "white", padding: "0 10px" }}>
-          Packages & Services used
+          Dependencies
         </span>
       </Typography>
-      <div style={{ border: "1px solid black", borderRadius: "5%" }}>
+      <div style={{ border: "1px solid black" }}>
         <Typography variant="body2" gutterBottom m={2}>
           React, react-redux, redux-thunk middleware, react-router, material-ui,
           react-card-flip, axios and Firebase for backend.
@@ -114,7 +116,7 @@ const About = () => {
       >
         <span style={{ background: "white", padding: "0 10px" }}>Credits</span>
       </Typography>
-      <div style={{ border: "1px solid black", borderRadius: "5%" }}>
+      <div style={{ border: "1px solid black" }}>
         <Typography variant="body2" gutterBottom m={2}>
           Thanks my graphic designer friend{" "}
           <Link
