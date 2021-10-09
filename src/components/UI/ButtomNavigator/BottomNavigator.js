@@ -31,7 +31,6 @@ const BottomNavigator = (props) => {
   useEffect(() => {
     let path = pathname;
     const parentPath = pathname.substring(0, pathname.lastIndexOf("/"));
-    console.log(parentPath.length);
     if (parentPath.length) {
       path = parentPath;
     }
