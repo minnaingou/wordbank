@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import PetsIcon from "@mui/icons-material/Pets";
 import Stack from "@mui/material/Stack";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -8,6 +7,7 @@ import SearchBar from "../../components/UI/SearchBar/SearchBar";
 import * as actionCreators from "../../store/actions";
 import DictionaryCard from "../../components/Dictionary/DictionaryCard/DictionaryCard";
 import FloatingActionButton from "../../components/UI/FloatingActionButton/FloatingActionButton";
+import EmptyPage from "../../components/UI/EmptyPage/EmptyPage";
 
 const Dictionary = (props) => {
   const onSearchHandler = (keyword) => {
@@ -61,16 +61,7 @@ const Dictionary = (props) => {
     );
   } else {
     searchResult = (
-      <Stack
-        direction="column"
-        spacing={2}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ height: "50vh" }}
-      >
-        <PetsIcon fontSize="large" />
-        <span>Search or add a new word</span>
-      </Stack>
+      <EmptyPage message="Search or add a new word" />
     );
   }
 

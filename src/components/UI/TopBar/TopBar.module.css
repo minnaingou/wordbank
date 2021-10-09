@@ -1,0 +1,9 @@
+.TopBar {
+  margin: 0px !important;
+  top: 0px !important;
+  left: 0px !important;
+  right: 0px !important;
+  bottom: auto !important;  
+  position: fixed !important;
+  z-index: 10;
+}

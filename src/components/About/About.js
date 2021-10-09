@@ -33,9 +33,9 @@ const About = () => {
           Have you ever come across an unfamiliar word and looked it up in a
           dictionary, only to forget it a few moments later? WordBank is the app
           to help you with that. With WordBank, you can lookup a word and save
-          it to your favorite list along with the example usages and your own
+          it to your favourite list along with the example usages and your own
           notes. You can easily review them later in the Practice session where
-          you will be presented with flashcards created from your favorites.
+          you will be presented with flashcards created from your favourites.
           WordBank helps you memorize new words by prioritizing the words you
           just added or the words you are having a hard time remembering before
           the words that are more frequently reviewed, and are remembered well.
@@ -56,10 +56,10 @@ const About = () => {
       </Typography>
       <div style={{ border: "1px solid black" }}>
         <Typography variant="body2" gutterBottom m={2}>
-          I'm Min Naing Oo, a Backend Developer with little to no exposure to
-          the modern frontend frameworks. I started learning React a few weeks
-          back and this app is the result of my effort to make use of what I've
-          learned so far.
+          I'm Min Naing Oo, a Backend Developer with a limited exposure to the
+          modern frontend frameworks. I started exploring React recently and
+          this app is the result of my effort to make use of what I've learned
+          so far and to create an app I always wish existed.
         </Typography>
         <div style={{ textAlign: "left", paddingLeft: 20 }}>
           <Link
@@ -100,7 +100,8 @@ const About = () => {
       <div style={{ border: "1px solid black" }}>
         <Typography variant="body2" gutterBottom m={2}>
           React, react-redux, redux-thunk middleware, react-router, material-ui,
-          react-card-flip, axios and Firebase for backend.
+          react-card-flip, axios and Firebase for backend. Free Dictionary API @
+          dictionaryapi.dev
         </Typography>
       </div>
       <Typography
@@ -125,7 +126,7 @@ const About = () => {
           >
             Wine Thin Zar Maung
           </Link>{" "}
-          for letting me use her amazing logo work.
+          for the beautiful logo work.
         </Typography>
       </div>
     </Stack>

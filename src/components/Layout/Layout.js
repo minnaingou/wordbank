@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import Container from "@mui/material/Container";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import InfoIcon from "@mui/icons-material/Info";
-import { withRouter } from "react-router";
 
 import BottomNavigator from "../UI/ButtomNavigator/BottomNavigator";
 import BottomDrawer from "../UI/BottomDrawer/BottomDrawer";
@@ -30,16 +30,24 @@ const Layout = (props) => {
     },
   ];
 
-  const onToggleHandler = () => {
-    setShowDrawer(!showDrawer);
+  const onToggleHandler = (to) => {
+    if (to === "more") setShowDrawer(!showDrawer);
+    else {
+      localStorage.setItem("lastUrl", to);
+      setShowDrawer(false);
+    }
   };
 
   return (
     <Container maxWidth="sm" sx={{ height: "100vh" }} disableGutters>
       <TopBar loggedIn={props.authenticated} />
-      <main>{props.children}</main>
-      <BottomNavigator clickedMore={onToggleHandler} />
-      <BottomDrawer show={showDrawer} items={drawerItems} />
+      <main style={{ paddingTop: 60 }}>{props.children}</main>
+      <BottomNavigator clicked={(to) => onToggleHandler(to)} />
+      <BottomDrawer
+        show={showDrawer}
+        items={drawerItems}
+        closed={onToggleHandler}
+      />
     </Container>
   );
 };

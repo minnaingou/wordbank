@@ -22,7 +22,7 @@ const BottomDrawer = (props) => {
 
   return (
     <div>
-      <Drawer anchor="bottom" open={props.show}>
+      <Drawer anchor="bottom" open={props.show} onClose={props.closed}>
         {list()}
       </Drawer>
     </div>

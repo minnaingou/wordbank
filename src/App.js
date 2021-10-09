@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import "./App.css";
 import Layout from "./components/Layout/Layout";
@@ -20,6 +20,20 @@ const App = (props) => {
     // eslint-disable-next-line
   }, []);
 
+  const secureRoutes = [
+    <Route
+      path="/add-favourite"
+      render={(props) => <WordInput {...props} mode="add" />}
+    />,
+    <Route
+      path="/edit-favourite"
+      render={(props) => <WordInput {...props} mode="edit" />}
+    />,
+    <Route path="/saved" component={Favourite} />,
+    <Route path="/practice" component={Practice} />,
+    <Route path="/statistics" component={Statistics} />,
+  ];
+
   return (
     <div className="App">
       <Layout authenticated={props.isAuthenticated}>
@@ -34,19 +48,11 @@ const App = (props) => {
             render={(props) => <Auth {...props} mode="login" />}
           />
           <Route path="/auth/logout" component={Logout} />
-          <Route
-            path="/add-favourite"
-            render={(props) => <WordInput {...props} mode="add" />}
-          />
-          <Route
-            path="/edit-favourite"
-            render={(props) => <WordInput {...props} mode="edit" />}
-          />
-          <Route path="/saved" component={Favourite} />
-          <Route path="/practice" component={Practice} />
-          <Route path="/statistics" component={Statistics} />
           <Route path="/about" component={About} />
-          <Route render={() => <div>Move along.. Nothing to see here..</div>} />
+
+          {props.isAuthenticated ? secureRoutes.map((route) => route) : null}
+
+          <Redirect to="/auth/login" />
         </Switch>
       </Layout>
     </div>

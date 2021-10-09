@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, withRouter } from "react-router-dom";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction, {
@@ -12,14 +12,22 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 
-const MoreBottomNavigationAction = styled(BottomNavigationAction)(({ theme }) => ({
-  [`&.${bottomNavigationActionClasses.selected}`]: {
-    color: "gray",
-  },
-}));
+const MoreBottomNavigationAction = styled(BottomNavigationAction)(
+  ({ theme }) => ({
+    [`&.${bottomNavigationActionClasses.selected}`]: {
+      color: "gray",
+    },
+  })
+);
 
 const BottomNavigator = (props) => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+
+  const { pathname } = props.location;
+  useEffect(() => {
+    const index = ["/", "/saved", "/practice"].indexOf(pathname);
+    setValue(index >= 0 ? index : 0);
+  }, [pathname]);
 
   return (
     <Box sx={{ width: 500 }}>
@@ -39,23 +47,26 @@ const BottomNavigator = (props) => {
             to="/"
             label="Dictionary"
             icon={<BookIcon />}
+            onClick={() => props.clicked("/")}
           />
           <BottomNavigationAction
             component={Link}
             to="/saved"
             label="Favorites"
             icon={<FavoriteIcon />}
+            onClick={() => props.clicked("/saved")}
           />
           <BottomNavigationAction
             component={Link}
             to="/practice"
             label="Practice"
             icon={<SportsEsportsIcon />}
+            onClick={() => props.clicked("/practice")}
           />
           <MoreBottomNavigationAction
             label="More"
             icon={<MoreHorizIcon />}
-            onClick={props.clickedMore}
+            onClick={() => props.clicked("more")}
           />
         </BottomNavigation>
       </Paper>
@@ -63,4 +74,4 @@ const BottomNavigator = (props) => {
   );
 };
 
-export default BottomNavigator;
+export default withRouter(BottomNavigator);

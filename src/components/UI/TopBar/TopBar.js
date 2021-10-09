@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
-import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -12,7 +12,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { withRouter } from "react-router-dom";
+
+import styles from "./TopBar.module.css";
 
 const TopBar = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,18 +28,14 @@ const TopBar = (props) => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }} className={styles.TopBar}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+          <img
+            style={{ width: "32px", borderRadius: "50%" }}
+            src={process.env.PUBLIC_URL + "/parrot-3.png"}
+            alt="logo"
+          />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             WordBank
           </Typography>
@@ -48,7 +45,7 @@ const TopBar = (props) => {
             color="inherit"
             onClick={handleClick}
           >
-            <AccountCircleIcon />
+            <AccountCircleIcon fontSize="large" />
           </IconButton>
           <Menu
             anchorEl={anchorEl}

@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import PetsIcon from "@mui/icons-material/Pets";
-import Stack from "@mui/material/Stack";
 
 import * as actionCreators from "../../store/actions";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import EnhancedTable from "../../components/UI/EnhancedTable/EnhancedTable";
+import EmptyPage from "../../components/UI/EmptyPage/EmptyPage";
 
 const Statistics = (props) => {
   useEffect(() => {
@@ -78,25 +76,11 @@ const Statistics = (props) => {
     table = <Spinner />;
   } else {
     table = (
-      <Stack
-        direction="column"
-        spacing={2}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ height: "70vh" }}
-      >
-        <PetsIcon fontSize="large" />
-        <span>Add few words to the list to view statistics</span>
-      </Stack>
+      <EmptyPage sx={{ pt: 14 }} message="Your favourite list is empty." />
     );
   }
 
-  return (
-    <div>
-      {!props.isAuthenticated && <Redirect to="/auth/login" />}
-      {table}
-    </div>
-  );
+  return <div>{table}</div>;
 };
 
 const mapStateToProps = (state) => {
@@ -104,7 +88,6 @@ const mapStateToProps = (state) => {
     stats: state.statistics.rawStats,
     loading: state.statistics.loading,
     userId: state.auth.userId,
-    isAuthenticated: state.auth.token != null,
   };
 };
 

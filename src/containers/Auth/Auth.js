@@ -7,6 +7,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import LoginIcon from "@mui/icons-material/Login";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Alert from "@mui/material/Alert";
 
 import * as actionCreators from "../../store/actions";
 import { validateEmail } from "../../utils/validator";
@@ -94,9 +95,14 @@ const Auth = (props) => {
     );
   };
 
+  const getRedirectUrl = () => {
+    const lastUrl = localStorage.getItem("lastUrl");
+    return lastUrl ? lastUrl : "/";
+  };
+
   return (
     <>
-      {props.isAuthenticated && <Redirect to="/" />}
+      {props.isAuthenticated && <Redirect to={getRedirectUrl()} />}
       <Box
         component="form"
         sx={{
@@ -110,7 +116,7 @@ const Auth = (props) => {
         m={3}
       >
         <Typography variant="h6">Welcome to WordBank</Typography>
-        <Typography variant="body2" mb={2}>
+        <Typography variant="caption" mb={2}>
           {isSignup
             ? "Register now to create your own favourite list and save practice progress across devices."
             : "Login to access your favourite list and continue practicing."}
@@ -137,12 +143,15 @@ const Auth = (props) => {
         >
           {isSignup ? "Register" : "Login"}
         </Button>
-        <Typography variant="caption" mt={4}>
-          <u>[BETA notice!</u> WordBank is currently not checking if the email
-          actually exists. You can sign up with anything as long as it looks
-          like an email.]
-        </Typography>
       </Box>
+
+      <Typography variant="caption" mt={4}>
+        <Alert severity="info">
+          BETA notice! WordBank is currently not checking if the email actually
+          exists. You can sign up with anything as long as it looks like an
+          email.
+        </Alert>
+      </Typography>
 
       {props.error && (
         <DialogBox

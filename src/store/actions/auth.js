@@ -28,6 +28,7 @@ export const authLogout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
   localStorage.removeItem("expirationTime");
+  localStorage.removeItem("lastUrl");
   return {
     type: actionTypes.AUTH_LOGOUT,
   };

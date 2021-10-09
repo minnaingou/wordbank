@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import PetsIcon from "@mui/icons-material/Pets";
 import Stack from "@mui/material/Stack";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -9,6 +7,7 @@ import * as actionCreators from "../../store/actions";
 import FavouriteItem from "../../components/Favourite/FavouriteItem/FavouriteItem";
 import DialogBox from "../../components/UI/DialogBox/DialogBox";
 import SearchBar from "../../components/UI/SearchBar/SearchBar";
+import EmptyPage from "../../components/UI/EmptyPage/EmptyPage";
 
 const Favourite = (props) => {
   const [dialog, setDialog] = useState({ show: false, key: null });
@@ -97,23 +96,11 @@ const Favourite = (props) => {
         );
       });
   } else {
-    list = (
-      <Stack
-        direction="column"
-        spacing={2}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ height: "50vh" }}
-      >
-        <PetsIcon fontSize="large" />
-        <span>Search or add a new word</span>
-      </Stack>
-    );
+    list = <EmptyPage message="Search or add a new word" />;
   }
 
   return (
     <>
-      {!props.isAuthenticated && <Redirect to="/auth/login" />}
       <SearchBar changed={onSearchChangeHandler} />
       <div style={{ paddingBottom: 70 }}>{list}</div>
       <DialogBox
@@ -133,7 +120,6 @@ const mapStateToProps = (state) => {
     dictionaries: state.favourite.dictionaries,
     loading: state.favourite.loading,
     userId: state.auth.userId,
-    isAuthenticated: state.auth.token != null,
   };
 };
 

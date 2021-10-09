@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
-import PetsIcon from "@mui/icons-material/Pets";
 
+import EmptyPage from "../../components/UI/EmptyPage/EmptyPage";
 import FlipCard from "../../components/Practice/FlipCard/FlipCard";
 import ProgressBar from "../../components/UI/ProgressBar/ProgressBar";
 import VotingButtonGroup from "../../components/Practice/VotingButtonGroup/VotingButtonGroup";
@@ -78,22 +77,15 @@ const Practice = (props) => {
     );
   } else {
     flipCard = (
-      <Stack
-        direction="column"
-        spacing={2}
-        alignItems="center"
-        justifyContent="center"
-        sx={{ height: "70vh" }}
-      >
-        <PetsIcon fontSize="large" />
-        <span>Add few words to the list to start practicing</span>
-      </Stack>
+      <EmptyPage
+        sx={{ pt: 14 }}
+        message="Add a few words to start practicing"
+      />
     );
   }
 
   return (
     <>
-      {!props.isAuthenticated && <Redirect to="/auth/login" />}
       {flipCard}
       <DialogBox
         content="Congratulations! Do you want to start over?"
@@ -120,7 +112,6 @@ const mapStateToProps = (state) => {
     totalQuestions: state.practice.practiceList.length,
     showComplete: state.practice.showComplete,
     userId: state.auth.userId,
-    isAuthenticated: state.auth.token != null,
   };
 };
 
