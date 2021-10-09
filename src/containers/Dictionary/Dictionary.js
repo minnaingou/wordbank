@@ -15,14 +15,14 @@ const Dictionary = (props) => {
   };
 
   const onAddWordInputHandler = (index) => {
-    props.history.push("/add-favourite", {
+    props.history.push("/favourites/add-favourite", {
       word: props.word,
       dictionary: props.dictionaries[index],
     });
   };
 
   const onFabHandler = () => {
-    props.history.push("/add-favourite");
+    props.history.push("/favourites/add-favourite");
   };
 
   let searchResult;
@@ -38,7 +38,7 @@ const Dictionary = (props) => {
         {[...Array(2)].map((_, i) => (
           <Skeleton
             key={i}
-            sx={{ height: "30vh", width: '100%' }}
+            sx={{ height: "30vh", width: "100%" }}
             variant="rectangular"
           />
         ))}
@@ -60,9 +60,7 @@ const Dictionary = (props) => {
       </div>
     );
   } else {
-    searchResult = (
-      <EmptyPage message="Search or add a new word" />
-    );
+    searchResult = <EmptyPage message="Search or add a new word" />;
   }
 
   return (

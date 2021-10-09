@@ -21,12 +21,12 @@ const fetchPracticeListFail = (error) => {
   };
 };
 
-export const fetchPracticeList = (userId) => {
+export const fetchPracticeList = (userId, token) => {
   return (dispatch) => {
     dispatch(fetchPracticeListStart());
-    const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
+    const queryParams = '&orderBy="userId"&equalTo="' + userId + '"';
     axiosFirebase
-      .get("/dictionaries.json" + queryParams)
+      .get("/dictionaries.json?auth=" + token + queryParams)
       .then((res) => {
         // Intentionally added some delay to show off loading
         new Promise((resolve) => {
@@ -56,7 +56,7 @@ const votePracticeSuccess = (practiceData) => {
   };
 };
 
-export const votePractice = (practiceItem, voted) => {
+export const votePractice = (practiceItem, voted, token) => {
   return (dispatch) => {
     const practiceUpdated = {
       practice: {
@@ -66,7 +66,10 @@ export const votePractice = (practiceItem, voted) => {
       },
     };
     axiosFirebase
-      .patch("/dictionaries/" + practiceItem.key + ".json", practiceUpdated)
+      .patch(
+        "/dictionaries/" + practiceItem.key + ".json?auth=" + token,
+        practiceUpdated
+      )
       .then((res) => {
         dispatch(votePracticeSuccess(res.data));
         dispatch(getNextQuestionReady());

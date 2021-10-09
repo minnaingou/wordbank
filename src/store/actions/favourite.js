@@ -21,12 +21,12 @@ const fetchDictionaryListFail = (error) => {
   };
 };
 
-export const fetchDictionaryList = (userId) => {
+export const fetchDictionaryList = (userId, token) => {
   return (dispatch) => {
     dispatch(fetchDictionaryListStart());
-    const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
+    const queryParams = '&orderBy="userId"&equalTo="' + userId + '"';
     axiosFirebase
-      .get("/dictionaries.json" + queryParams)
+      .get("/dictionaries.json?auth=" + token + queryParams)
       .then((res) => {
         // Intentionally added some delay to show off loading
         new Promise((resolve) => {
@@ -57,10 +57,10 @@ const deleteFavouriteFail = (error) => {
   };
 };
 
-export const deleteFavourite = (key) => {
+export const deleteFavourite = (key, token) => {
   return (dispatch) => {
     axiosFirebase
-      .delete("/dictionaries/" + key + ".json")
+      .delete("/dictionaries/" + key + ".json?auth=" + token)
       .then(() => {
         dispatch(deleteFavouriteSuccess(key));
         // Filtering locally instead of fetching again to avoid loading

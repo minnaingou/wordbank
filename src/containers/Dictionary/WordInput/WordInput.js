@@ -119,7 +119,12 @@ const WordInput = (props) => {
       },
     };
     // props.mode = [ add | edit ]
-    props.onSave(dictionary, props.mode === "edit", props.location.state.key);
+    props.onSave(
+      dictionary,
+      props.mode === "edit",
+      props.location.state.key,
+      props.token
+    );
   };
 
   return (
@@ -221,13 +226,14 @@ const mapStateToProps = (state) => {
     saved: state.dictionary.saveProgress === "saved" ? true : false,
     error: state.dictionary.error,
     userId: state.auth.userId,
+    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSave: (dictionary, editing, key) =>
-      dispatch(actionCreators.saveDictionary(dictionary, editing, key)),
+    onSave: (dictionary, editing, key, token) =>
+      dispatch(actionCreators.saveDictionary(dictionary, editing, key, token)),
     cleanup: () => dispatch(actionCreators.saveDictionaryCleanup()),
   };
 };

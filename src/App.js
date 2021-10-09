@@ -22,14 +22,14 @@ const App = (props) => {
 
   const secureRoutes = [
     <Route
-      path="/add-favourite"
+      path="/favourites/add-favourite"
       render={(props) => <WordInput {...props} mode="add" />}
     />,
     <Route
-      path="/edit-favourite"
+      path="/favourites/edit-favourite"
       render={(props) => <WordInput {...props} mode="edit" />}
     />,
-    <Route path="/saved" component={Favourite} />,
+    <Route path="/favourites" component={Favourite} />,
     <Route path="/practice" component={Practice} />,
     <Route path="/statistics" component={Statistics} />,
   ];

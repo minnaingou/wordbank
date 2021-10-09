@@ -8,7 +8,7 @@ import EmptyPage from "../../components/UI/EmptyPage/EmptyPage";
 
 const Statistics = (props) => {
   useEffect(() => {
-    props.fetchStatistics(props.userId);
+    props.fetchStatistics(props.userId, props.token);
     // eslint-disable-next-line
   }, []);
 
@@ -88,13 +88,14 @@ const mapStateToProps = (state) => {
     stats: state.statistics.rawStats,
     loading: state.statistics.loading,
     userId: state.auth.userId,
+    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchStatistics: (userId) =>
-      dispatch(actionCreators.fetchStatistics(userId)),
+    fetchStatistics: (userId, token) =>
+      dispatch(actionCreators.fetchStatistics(userId, token)),
   };
 };
 

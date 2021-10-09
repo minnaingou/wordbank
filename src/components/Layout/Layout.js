@@ -30,9 +30,11 @@ const Layout = (props) => {
     },
   ];
 
-  const onToggleHandler = (to) => {
-    if (to === "more") setShowDrawer(!showDrawer);
-    else {
+  const onToggleHandler = (to, setIndex) => {
+    if (to === "more") {
+      setShowDrawer(!showDrawer);
+      setIndex && setIndex(localStorage.getItem("lastUrl"));
+    } else {
       localStorage.setItem("lastUrl", to);
       setShowDrawer(false);
     }
@@ -42,7 +44,9 @@ const Layout = (props) => {
     <Container maxWidth="sm" sx={{ height: "100vh" }} disableGutters>
       <TopBar loggedIn={props.authenticated} />
       <main style={{ paddingTop: 60 }}>{props.children}</main>
-      <BottomNavigator clicked={(to) => onToggleHandler(to)} />
+      <BottomNavigator
+        clicked={(to, setIndex) => onToggleHandler(to, setIndex)}
+      />
       <BottomDrawer
         show={showDrawer}
         items={drawerItems}

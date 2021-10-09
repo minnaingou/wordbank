@@ -76,12 +76,12 @@ const saveDictionaryFail = (error) => {
   };
 };
 
-const findSavedFavouriteByWord = (userId, word) => {
+const findSavedFavouriteByWord = (userId, word, token) => {
   return new Promise((resolve, reject) => {
     // check if already saved (firebase api restricts using multiple filter)
-    const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
+    const queryParams = '&orderBy="userId"&equalTo="' + userId + '"';
     axiosFirebase
-      .get("/dictionaries.json" + queryParams)
+      .get("/dictionaries.json?auth=" + token + queryParams)
       .then((res) => {
         const favourite = Object.keys(res.data).find(
           (key) => res.data[key].word === word
@@ -95,10 +95,10 @@ const findSavedFavouriteByWord = (userId, word) => {
   });
 };
 
-const postFavouriteToFirebase = (dictionary) => {
+const postFavouriteToFirebase = (dictionary, token) => {
   return new Promise((resolve, reject) => {
     axiosFirebase
-      .post("/dictionaries.json", dictionary)
+      .post("/dictionaries.json?auth=" + token, dictionary)
       .then((res) => {
         // Intentionally added some delay to show off loading
         setTimeout(() => {
@@ -112,10 +112,10 @@ const postFavouriteToFirebase = (dictionary) => {
   });
 };
 
-const updateFavouriteToFirebase = (key, dictionary) => {
+const updateFavouriteToFirebase = (key, dictionary, token) => {
   return new Promise((resolve, reject) => {
     axiosFirebase
-      .put("/dictionaries/" + key + ".json", dictionary)
+      .put("/dictionaries/" + key + ".json?auth=" + token, dictionary)
       .then((res) => {
         // Intentionally added some delay to show off loading
         setTimeout(() => {
@@ -129,11 +129,11 @@ const updateFavouriteToFirebase = (key, dictionary) => {
   });
 };
 
-export const saveDictionary = (dictionary, editing, editKey) => {
+export const saveDictionary = (dictionary, editing, editKey, token) => {
   return (dispatch) => {
     if (editing) {
       dispatch(saveDictionaryStart());
-      updateFavouriteToFirebase(editKey, dictionary)
+      updateFavouriteToFirebase(editKey, dictionary, token)
         .then((res) => {
           dispatch(saveDictionarySuccess(res));
         })
@@ -142,7 +142,7 @@ export const saveDictionary = (dictionary, editing, editKey) => {
           dispatch(saveDictionaryFail(error));
         });
     } else {
-      findSavedFavouriteByWord(dictionary.userId, dictionary.word)
+      findSavedFavouriteByWord(dictionary.userId, dictionary.word, token)
         .then((savedFav) => {
           if (savedFav) {
             dispatch(
@@ -150,7 +150,7 @@ export const saveDictionary = (dictionary, editing, editKey) => {
             );
           } else {
             dispatch(saveDictionaryStart());
-            postFavouriteToFirebase(dictionary)
+            postFavouriteToFirebase(dictionary, token)
               .then((res) => {
                 dispatch(saveDictionarySuccess(res));
               })

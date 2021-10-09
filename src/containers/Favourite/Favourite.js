@@ -15,13 +15,13 @@ const Favourite = (props) => {
   const [searchKey, setSearchKey] = useState(null);
 
   useEffect(() => {
-    props.fetchDictionaries(props.userId);
+    props.fetchDictionaries(props.userId, props.token);
     // eslint-disable-next-line
   }, []);
 
   const onEditHandler = (key) => {
     const dict = props.dictionaries[key];
-    props.history.push("/edit-favourite", {
+    props.history.push("/favourites/edit-favourite", {
       key,
       word: dict.word,
       dictionary: {
@@ -45,7 +45,7 @@ const Favourite = (props) => {
 
   const onDeleteConfirmHandler = () => {
     setDialog({ show: false });
-    props.deleteFavourite(dialog.key);
+    props.deleteFavourite(dialog.key, props.token);
   };
 
   const onSearchChangeHandler = (keyword) => {
@@ -120,14 +120,16 @@ const mapStateToProps = (state) => {
     dictionaries: state.favourite.dictionaries,
     loading: state.favourite.loading,
     userId: state.auth.userId,
+    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchDictionaries: (userId) =>
-      dispatch(actionCreators.fetchDictionaryList(userId)),
-    deleteFavourite: (key) => dispatch(actionCreators.deleteFavourite(key)),
+    fetchDictionaries: (userId, token) =>
+      dispatch(actionCreators.fetchDictionaryList(userId, token)),
+    deleteFavourite: (key, token) =>
+      dispatch(actionCreators.deleteFavourite(key, token)),
   };
 };
 

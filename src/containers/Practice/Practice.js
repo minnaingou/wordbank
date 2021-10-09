@@ -14,7 +14,7 @@ const Practice = (props) => {
   const [isFlipped, setFlipped] = useState(false);
 
   useEffect(() => {
-    props.fetchPracticeList(props.userId);
+    props.fetchPracticeList(props.userId, props.token);
     // eslint-disable-next-line
   }, []);
 
@@ -27,17 +27,17 @@ const Practice = (props) => {
       }
       case "positive": {
         setFlipped(!isFlipped);
-        props.votePractice(props.practiceItem, "positive");
+        props.votePractice(props.practiceItem, "positive", props.token);
         break;
       }
       case "negative": {
         setFlipped(!isFlipped);
-        props.votePractice(props.practiceItem, "negative");
+        props.votePractice(props.practiceItem, "negative", props.token);
         break;
       }
       case "skip": {
         setFlipped(!isFlipped);
-        props.votePractice(props.practiceItem, "skip");
+        props.votePractice(props.practiceItem, "skip", props.token);
         break;
       }
       default:
@@ -92,7 +92,7 @@ const Practice = (props) => {
         open={props.showComplete}
         dismissLabel="Yes"
         cancelled={() => {
-          props.fetchPracticeList(props.userId);
+          props.fetchPracticeList(props.userId, props.token);
         }}
         confirmLabel="Show Statistics"
         confirmed={() => {
@@ -112,15 +112,16 @@ const mapStateToProps = (state) => {
     totalQuestions: state.practice.practiceList.length,
     showComplete: state.practice.showComplete,
     userId: state.auth.userId,
+    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchPracticeList: (userId) =>
-      dispatch(actionCreators.fetchPracticeList(userId)),
-    votePractice: (practiceItem, voted) =>
-      dispatch(actionCreators.votePractice(practiceItem, voted)),
+    fetchPracticeList: (userId, token) =>
+      dispatch(actionCreators.fetchPracticeList(userId, token)),
+    votePractice: (practiceItem, voted, token) =>
+      dispatch(actionCreators.votePractice(practiceItem, voted, token)),
   };
 };
 

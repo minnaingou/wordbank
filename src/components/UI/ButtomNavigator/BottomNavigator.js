@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
@@ -23,11 +23,21 @@ const MoreBottomNavigationAction = styled(BottomNavigationAction)(
 const BottomNavigator = (props) => {
   const [value, setValue] = useState(0);
 
+  const pathMap = useMemo(() => {
+    return ["/", "/favourites", "/practice"];
+  }, []);
+
   const { pathname } = props.location;
   useEffect(() => {
-    const index = ["/", "/saved", "/practice"].indexOf(pathname);
+    let path = pathname;
+    const parentPath = pathname.substring(0, pathname.lastIndexOf("/"));
+    console.log(parentPath.length);
+    if (parentPath.length) {
+      path = parentPath;
+    }
+    const index = pathMap.indexOf(path);
     setValue(index >= 0 ? index : 0);
-  }, [pathname]);
+  }, [pathname, pathMap]);
 
   return (
     <Box sx={{ width: 500 }}>
@@ -51,10 +61,10 @@ const BottomNavigator = (props) => {
           />
           <BottomNavigationAction
             component={Link}
-            to="/saved"
+            to="/favourites"
             label="Favorites"
             icon={<FavoriteIcon />}
-            onClick={() => props.clicked("/saved")}
+            onClick={() => props.clicked("/favourites")}
           />
           <BottomNavigationAction
             component={Link}
@@ -66,7 +76,11 @@ const BottomNavigator = (props) => {
           <MoreBottomNavigationAction
             label="More"
             icon={<MoreHorizIcon />}
-            onClick={() => props.clicked("more")}
+            onClick={() =>
+              props.clicked("more", (path) => {
+                setValue(pathMap.indexOf(path));
+              })
+            }
           />
         </BottomNavigation>
       </Paper>
