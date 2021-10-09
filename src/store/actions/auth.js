@@ -97,7 +97,7 @@ export const loginStatusCheck = () => {
   };
 };
 
-export const authCleanup = () => {
+export const authCleanUp = () => {
   return {
     type: actionTypes.AUTH_CLEANUP,
   };

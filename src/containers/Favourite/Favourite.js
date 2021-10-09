@@ -28,6 +28,7 @@ const Favourite = (props) => {
         partOfSpeech: dict.meaning.pos,
         definition: dict.meaning.definition,
         example: dict.meaning.example,
+        note: dict.meaning.note,
       },
     });
   };

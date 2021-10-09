@@ -124,7 +124,7 @@ const About = () => {
             href="https://www.linkedin.com/in/wine-thinzar-b32507220/"
             target="_blank"
           >
-            Wine Thin Zar Maung
+            Wine Thinzar Maung
           </Link>{" "}
           for the beautiful logo work.
         </Typography>

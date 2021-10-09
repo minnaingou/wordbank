@@ -41,7 +41,7 @@ const authLogout = (state) => {
   };
 };
 
-const authCleanup = (state) => {
+const authCleanUp = (state) => {
   return {
     ...state,
     error: null,
@@ -59,7 +59,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.AUTH_LOGOUT:
       return authLogout(state, action);
     case actionTypes.AUTH_CLEANUP:
-      return authCleanup(state);
+      return authCleanUp(state);
     default:
       return state;
   }

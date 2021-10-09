@@ -168,8 +168,14 @@ export const saveDictionary = (dictionary, editing, editKey, token) => {
   };
 };
 
-export const saveDictionaryCleanup = () => {
+export const saveDictionaryCleanUp = () => {
   return {
     type: actionTypes.SAVE_DICTIONARY_CLEANUP,
+  };
+};
+
+export const fetchDictionaryCleanUp = () => {
+  return {
+    type: actionTypes.FETCH_DICTIONARY_CLEANUP,
   };
 };

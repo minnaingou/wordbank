@@ -50,9 +50,12 @@ const App = (props) => {
           <Route path="/auth/logout" component={Logout} />
           <Route path="/about" component={About} />
 
-          {props.isAuthenticated ? secureRoutes.map((route) => route) : null}
+          {props.isAuthenticated &&
+            secureRoutes.map((route, index) => {
+              return { ...route, key: index };
+            })}
 
-          <Redirect to="/auth/login" />
+          <Redirect to="/auth/register" />
         </Switch>
       </Layout>
     </div>

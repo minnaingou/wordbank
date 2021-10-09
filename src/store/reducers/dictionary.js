@@ -58,11 +58,17 @@ const saveDictionaryFail = (state, action) => {
   };
 };
 
-const saveDictionaryCleanup = (state) => {
+const saveDictionaryCleanUp = (state) => {
   return {
     ...state,
     saveProgress: null,
     error: null,
+  };
+};
+
+const fetchDictionaryCleanUp = () => {
+  return {
+    ...initialState,
   };
 };
 
@@ -81,7 +87,9 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SAVE_DICTIONARY_FAIL:
       return saveDictionaryFail(state, action);
     case actionTypes.SAVE_DICTIONARY_CLEANUP:
-      return saveDictionaryCleanup(state);
+      return saveDictionaryCleanUp(state);
+    case actionTypes.FETCH_DICTIONARY_CLEANUP:
+      return fetchDictionaryCleanUp();
     default:
       return state;
   }

@@ -177,7 +177,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     authenticate: (authData, isSignup) =>
       dispatch(actionCreators.authenticate(authData, isSignup)),
-    cleanup: () => dispatch(actionCreators.authCleanup()),
+    cleanup: () => dispatch(actionCreators.authCleanUp()),
   };
 };
 

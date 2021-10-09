@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Stack from "@mui/material/Stack";
 import Skeleton from "@mui/material/Skeleton";
@@ -10,6 +10,14 @@ import FloatingActionButton from "../../components/UI/FloatingActionButton/Float
 import EmptyPage from "../../components/UI/EmptyPage/EmptyPage";
 
 const Dictionary = (props) => {
+  useEffect(() => {
+    // clean up
+    return () => {
+      props.cleanup();
+    };
+    // eslint-disable-next-line
+  }, []);
+
   const onSearchHandler = (keyword) => {
     props.onSearch(keyword);
   };
@@ -65,7 +73,7 @@ const Dictionary = (props) => {
 
   return (
     <>
-      <SearchBar searched={onSearchHandler} focus />
+      <SearchBar searched={onSearchHandler} focus={!props.dictionaries} />
       {searchResult}
       <FloatingActionButton clicked={onFabHandler} type="add" />
     </>
@@ -83,6 +91,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSearch: (keyword) => dispatch(actionCreators.fetchDictionary(keyword)),
+    cleanup: () => dispatch(actionCreators.fetchDictionaryCleanUp()),
   };
 };
 

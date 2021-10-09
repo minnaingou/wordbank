@@ -1,7 +1,8 @@
 export {
   fetchDictionary,
   saveDictionary,
-  saveDictionaryCleanup,
+  saveDictionaryCleanUp,
+  fetchDictionaryCleanUp,
 } from "./dictionary";
 
 export { fetchDictionaryList, deleteFavourite } from "./favourite";
@@ -14,5 +15,5 @@ export {
   authenticate,
   authLogout,
   loginStatusCheck,
-  authCleanup,
+  authCleanUp,
 } from "./auth";
