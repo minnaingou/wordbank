@@ -13,6 +13,7 @@ const fetchDictionaryStart = (state) => {
     ...state,
     loading: true,
     error: null,
+    dictionaries: null,
   };
 };
 

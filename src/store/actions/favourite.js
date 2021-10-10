@@ -33,7 +33,7 @@ export const fetchDictionaryList = (userId, token) => {
           setTimeout(() => {
             dispatch(fetchDictionaryListSuccess(res.data));
             resolve();
-          }, 1000);
+          }, 600);
         });
       })
       .catch((err) => {

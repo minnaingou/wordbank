@@ -100,6 +100,14 @@ const Auth = (props) => {
     return lastUrl ? lastUrl : "/";
   };
 
+  const getButtonText = () => {
+    if (props.loading) {
+      return isSignup ? "Registering ..." : "Logging in ...";
+    } else {
+      return isSignup ? "Register" : "Login";
+    }
+  };
+
   return (
     <>
       {props.isAuthenticated && <Redirect to={getRedirectUrl()} />}
@@ -137,11 +145,11 @@ const Auth = (props) => {
         />
         <Button
           variant="contained"
-          disabled={!validForm && !props.loading}
+          disabled={!validForm || props.loading}
           startIcon={isSignup ? <PersonAddIcon /> : <LoginIcon />}
           onClick={onAuthHandler}
         >
-          {isSignup ? "Register" : "Login"}
+          {getButtonText()}
         </Button>
       </Box>
 

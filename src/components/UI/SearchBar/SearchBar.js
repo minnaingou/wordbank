@@ -19,6 +19,7 @@ const SearchBar = (props) => {
   const onKeypressHandler = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
+      event.target.blur();
       props.searched && props.searched(keyword);
     }
   };

@@ -103,7 +103,7 @@ const postFavouriteToFirebase = (dictionary, token) => {
         // Intentionally added some delay to show off loading
         setTimeout(() => {
           resolve(res.data);
-        }, 1000);
+        }, 600);
       })
       .catch((error) => {
         console.log(error);
@@ -120,7 +120,7 @@ const updateFavouriteToFirebase = (key, dictionary, token) => {
         // Intentionally added some delay to show off loading
         setTimeout(() => {
           resolve(res.data);
-        }, 1000);
+        }, 600);
       })
       .catch((error) => {
         console.log(error);

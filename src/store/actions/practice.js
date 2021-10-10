@@ -33,7 +33,7 @@ export const fetchPracticeList = (userId, token) => {
           setTimeout(() => {
             dispatch(fetchPracticeListSuccess(res.data));
             resolve();
-          }, 1000);
+          }, 600);
         });
       })
       .catch((err) => {

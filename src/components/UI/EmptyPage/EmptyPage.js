@@ -8,10 +8,14 @@ const EmptyPage = (props) => {
       direction="column"
       spacing={2}
       alignItems="center"
-      sx={{ padding: 5, paddingBottom: 10, ...props.sx }}
+      sx={{
+        paddingTop: 5,
+        paddingBottom: 10,
+        ...props.sx,
+      }}
     >
       <img
-        style={{ width: "50%", borderRadius: "50%" }}
+        style={{ width: "40%", height: "1%", borderRadius: "50%" }}
         src={process.env.PUBLIC_URL + "/parrot-3.png"}
         alt="logo"
       />

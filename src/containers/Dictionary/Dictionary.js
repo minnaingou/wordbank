@@ -73,7 +73,7 @@ const Dictionary = (props) => {
 
   return (
     <>
-      <SearchBar searched={onSearchHandler} focus={!props.dictionaries} />
+      <SearchBar searched={onSearchHandler} focus />
       {searchResult}
       <FloatingActionButton clicked={onFabHandler} type="add" />
     </>

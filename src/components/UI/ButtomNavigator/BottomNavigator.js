@@ -35,7 +35,7 @@ const BottomNavigator = (props) => {
       path = parentPath;
     }
     const index = pathMap.indexOf(path);
-    setValue(index >= 0 ? index : 0);
+    setValue(index >= 0 ? index : -1);
   }, [pathname, pathMap]);
 
   return (
