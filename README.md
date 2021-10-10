@@ -57,6 +57,8 @@ $ cd wordbank
 # Install dependencies
 $ npm install
 
+# Put your own Firebase Web API Key and set the API_KEY inside actions/auth.js
+
 # Run the app
 $ npm start
 
@@ -82,7 +84,8 @@ This software uses the following dependencies:
 - [axios](https://www.npmjs.com/package/axios) - http client
 - [Firebase](https://firebase.google.com/) for database, authentication and hosting
 
-## Known Issues
+## To do
 
-* The app is not very responsive for desktop UI now.
-* Forget password function is not available yet.
+* To make the app responsive for desktops with sidebar
+* To add forget password function
+* To improve security at backend side
