@@ -1,9 +1,11 @@
 
 <h1 align="center">
   <br>
-  <img src="https://learnwordslikeaparrot.web.app/parrot-3-transparent.png" alt="WordBank" width="150">
-  <br>
-  WordBank
+  <a href="https://learnwordslikeaparrot.web.app/">
+    <img src="https://learnwordslikeaparrot.web.app/parrot-3-transparent.png" alt="WordBank" width="150">
+    <br>
+    WordBank
+  </a>
   <br>
 </h1>
 
@@ -69,15 +71,16 @@ You will also see any lint errors in the console.
 
 ## Credits
 
-This software uses the following open source packages:
+This software uses the following dependencies:
 
 - [ReactJS](https://reactjs.org/)
 - [material-ui](https://mui.com/)
-- [React Redux - state management](https://react-redux.js.org/)
-- [Redux Thunk - middleware](https://github.com/reduxjs/redux-thunk)
+- [React Redux](https://react-redux.js.org/) - state management
+- [Redux Thunk](https://github.com/reduxjs/redux-thunk) - middleware
 - [React Router](https://reactrouter.com/)
 - [react-card-flip](https://www.npmjs.com/package/react-card-flip)
-- [axios - http client](https://www.npmjs.com/package/axios)
+- [axios](https://www.npmjs.com/package/axios) - http client
+- [Firebase](https://firebase.google.com/) for database, authentication and hosting
 
 ## Known Issues
 
