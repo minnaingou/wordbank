@@ -1,70 +1,85 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+  <br>
+  <img src="https://learnwordslikeaparrot.web.app/parrot-3-transparent.png" alt="WordBank" width="150">
+  <br>
+  WordBank
+  <br>
+</h1>
 
-## Available Scripts
+<h4 align="center">A dictionary app with built in flashcard style practicing, built with ReactJS.</h4>
 
-In the project directory, you can run:
+<p align="center">
+  <img src="https://i.imgur.com/ag6yDc8.jpg" width="170">
+  <img src="https://i.imgur.com/QaQDTQK.jpg" width="170">
+  <img src="https://i.imgur.com/Gpw3xof.jpg" width="170">
+  <img src="https://i.imgur.com/TQDs0kE.jpg" width="170">
+  <img src="https://i.imgur.com/MuYAjqG.jpg" width="170">
+</p>
 
-### `npm start`
+## About This Project
 
-Runs the app in the development mode.\
+WordBank is not just another dictionary app. So what is it?
+
+Have you ever come across an unfamiliar word and looked it up in a dictionary, only to forget it a few moments later?
+
+WordBank is an app to help you with that. With WordBank, you can lookup a word and save it to your favourite list along with the example usages and your own notes.
+You can easily review them later in the Practice session where you will be presented with flashcards created from your favourites.
+
+WordBank helps you memorize new words by prioritizing the words you just added, or the words you are having a hard time remembering before those which are more frequently reviewed, and are remembered well.
+
+## Key Features
+
+* Material Design
+* Integrated Free Dictionary API
+* Add your own definitions, example usages and notes
+* Easily search your favourite items
+* Register or login to create your own list of favourite definitions and practice them across devices
+* Restore login and last visited page on page reload
+* Newly added words or the definitions you incorrectly guessed are prioritized
+* Animated Flashcards
+* View your statistics and sort by number of attemps or correction rates 
+* Drawer integration with Bottom Navigation
+
+## How To Use
+
+To clone and run this application, you'll need Git and Node.js (which comes with npm) installed on your computer. In the project directory, you can run:
+
+```bash
+# Clone this repository
+$ git clone https://github.com/minnaingou/wordbank.git
+
+# Go into the repository
+$ cd wordbank
+
+# Install dependencies
+$ npm install
+
+# Run the app
+$ npm start
+
+# Builds the app for production to the `build` folder
+$ npm run build
+```
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
+## Credits
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This software uses the following open source packages:
 
-### `npm run build`
+- [ReactJS](https://reactjs.org/)
+- [material-ui](https://mui.com/)
+- [React Redux - state management](https://react-redux.js.org/)
+- [Redux Thunk - middleware](https://github.com/reduxjs/redux-thunk)
+- [React Router](https://reactrouter.com/)
+- [react-card-flip](https://www.npmjs.com/package/react-card-flip)
+- [axios - http client](https://www.npmjs.com/package/axios)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Known Issues
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* The app is not very responsive for desktop UI now.
+* Forget password function is not available yet.
