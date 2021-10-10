@@ -10,11 +10,11 @@
 <h4 align="center">A dictionary app with built in flashcard style practicing, built with ReactJS.</h4>
 
 <p align="center">
-  <img src="https://i.imgur.com/ag6yDc8.jpg" width="170">
-  <img src="https://i.imgur.com/QaQDTQK.jpg" width="170">
-  <img src="https://i.imgur.com/Gpw3xof.jpg" width="170">
-  <img src="https://i.imgur.com/TQDs0kE.jpg" width="170">
-  <img src="https://i.imgur.com/MuYAjqG.jpg" width="170">
+  <img src="https://i.imgur.com/ag6yDc8.jpg" width="150">
+  <img src="https://i.imgur.com/QaQDTQK.jpg" width="150">
+  <img src="https://i.imgur.com/Gpw3xof.jpg" width="150">
+  <img src="https://i.imgur.com/TQDs0kE.jpg" width="150">
+  <img src="https://i.imgur.com/MuYAjqG.jpg" width="150">
 </p>
 
 ## About This Project
