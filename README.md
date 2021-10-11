@@ -57,7 +57,7 @@ $ cd wordbank
 # Install dependencies
 $ npm install
 
-# Put your own Firebase Web API Key and set the API_KEY inside actions/auth.js
+# Set your Firebase Web API Key in actions/auth.js
 
 # Run the app
 $ npm start
