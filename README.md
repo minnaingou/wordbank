@@ -21,14 +21,14 @@
 
 ## About This Project
 
-WordBank is not just another dictionary app. So what is it?
+WordBank, a-not-just-another-dictionary app
 
 Have you ever come across an unfamiliar word and looked it up in a dictionary, only to forget it a few moments later?
 
 WordBank is an app to help you with that. With WordBank, you can lookup a word and save it to your favourite list along with the example usages and your own notes.
 You can easily review them later in the Practice session where you will be presented with flashcards created from your favourites.
 
-WordBank helps you memorize new words by prioritizing the words you just added, or the words you are having a hard time remembering before those which are more frequently reviewed, and are remembered well.
+WordBank helps you memorize new words by prioritizing the words you just added, or the words you are having a hard time remembering, before those which are more frequently reviewed, and are remembered well.
 
 ## Key Features
 
@@ -42,6 +42,10 @@ WordBank helps you memorize new words by prioritizing the words you just added, 
 * Animated Flashcards
 * View your statistics and sort by number of attemps or correction rates 
 * Drawer integration with Bottom Navigation
+
+## Demo
+A hosted demo version is available on https://learnwordslikeaparrot.web.app
+For your convenience, use any email address to sign up! ;)
 
 ## How To Use
 
