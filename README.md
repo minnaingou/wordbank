@@ -93,3 +93,5 @@ This software uses the following dependencies:
 * To make the app responsive for desktops with sidebar
 * To add forget password function
 * To improve security at backend side
+
+Note: Please contact me for the demo account login credentials with sample data, or you can create an account with any email address.
